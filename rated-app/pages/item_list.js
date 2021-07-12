@@ -4,9 +4,17 @@ import axios from "axios";
 import { BASE_API_URL } from "./api/constants";
 import { Main, List, Button } from "../styles";
 import Link from "next/link";
-import card from "./card";
+import AuthContext from "../stores/authContext";
 
 const item_list = ({ itemList }) => {
+  // const { user } = useContext(AuthContext);
+  // if (user) {
+  //   console.log("someone is logged in");
+  // } else {
+  //   console.log("nothing dey here");
+  // }
+  // console.log(user);
+
   console.log(itemList);
   return (
     <>
@@ -14,16 +22,5 @@ const item_list = ({ itemList }) => {
     </>
   );
 };
-
-// export const getServerSideProps = async (context) => {
-//   const res = await axios.get(`${BASE_API_URL}/catalog/items`);
-//   const itemList = await res.data;
-
-//   return {
-//     props: {
-//       itemList,
-//     },
-//   };
-// };
 
 export default item_list;

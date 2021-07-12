@@ -1,0 +1,48 @@
+version: "3"
+services:
+  # nginx:
+  #   image: nginx:stable-alpine
+  #   ports:
+  #     - "8000:80"
+  #   networks:
+  #     - rated-app
+  #   volumes:
+  #     - ./nginx/default.conf:/etc/nginx/conf.d
+
+  rated-app-server:
+    restart: always
+    build: ./server
+    ports:
+      - 3000:3000
+    networks:
+      - rated-app
+    depends_on:
+      - mongo
+
+  next-app:
+    # restart: always
+    build: ./rated-app
+    ports:
+      - 3005:3005
+    networks:
+      - rated-app
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - rated-app
+    volumes:
+      - mongo-db:/data/db
+
+  redis:
+    image: redis
+    networks:
+      - rated-app
+
+networks:
+  rated-app:
+    driver: bridge
+volumes:
+  mongo-db:

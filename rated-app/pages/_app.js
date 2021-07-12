@@ -1,14 +1,15 @@
 import "../styles/globals.css";
-// import axios from "axios";
-// import { BASE_API_URL } from "./api/constants";
+
 import Layout from "../components/Layout";
-// import { AppWrapper } from "../contexts/StoreList";
+import { AuthContextProvider } from "../stores/authContext";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <AuthContextProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </AuthContextProvider>
   );
 }
 

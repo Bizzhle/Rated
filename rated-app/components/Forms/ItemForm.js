@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { BASE_API_URL } from "../../pages/api/constants";
-
 import { Form, Main } from "../../styles";
+import { useRouter } from "next/router";
 
 const ItemForm = ({ storeList, categoryList }) => {
+  const router = useRouter();
   const [storeItems, setStoreItems] = useState(storeList);
-
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [store, setStore] = useState("");
@@ -37,6 +37,8 @@ const ItemForm = ({ storeList, categoryList }) => {
     setStore("");
     setRating("");
     setComment("");
+
+    router.push("/item_list");
   };
 
   return (
@@ -45,7 +47,7 @@ const ItemForm = ({ storeList, categoryList }) => {
       <Form>
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="itemName">Item Name:</label>
+            {/* <label htmlFor="itemName">Item Name:</label> */}
             <input
               type="text"
               name="title"
@@ -58,7 +60,7 @@ const ItemForm = ({ storeList, categoryList }) => {
           </div>
 
           <div>
-            <label htmlFor="itemName">Select Category:</label>
+            {/* <label htmlFor="itemName">Select Category:</label> */}
             <select
               value={category}
               name="category"
@@ -76,7 +78,7 @@ const ItemForm = ({ storeList, categoryList }) => {
           </div>
 
           <div>
-            <label htmlFor="itemName">Select Store:</label>
+            {/* <label htmlFor="itemName">Select Store:</label> */}
 
             <select
               value={store}
@@ -95,7 +97,7 @@ const ItemForm = ({ storeList, categoryList }) => {
           </div>
 
           <div>
-            <label htmlFor="itemName">Select a rating:</label>
+            {/* <label htmlFor="itemName">Select a rating:</label> */}
 
             <select
               value={rating}

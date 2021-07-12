@@ -2,7 +2,7 @@ version: "3"
 services:
   nginx:
     ports:
-      - "80:80"
+      - "8000:80"
   rated-app-server:
     build:
       context: .

@@ -2,8 +2,10 @@ import { useState } from "react";
 import axios from "axios";
 import { Main, Form } from "../../styles";
 import { BASE_API_URL } from "../../pages/api/constants";
+import { useRouter } from "next/router";
 
 const Store_form = () => {
+  const router = useRouter();
   const [name, setName] = useState("");
   // const [errors, setErrors] = useState(false);
   console.log(name);
@@ -22,6 +24,7 @@ const Store_form = () => {
       }
     }
     setName("");
+    router.push("/store_list");
   };
 
   const handleChange = (e) => {
@@ -33,12 +36,12 @@ const Store_form = () => {
       <Form>
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="store_name">Store:</label>
+            <label htmlFor="store_name">Stores:</label>
             <input
               type="text"
               name="name"
               value={name}
-              placeholder="Enter name of store"
+              placeholder="Enter name of stores"
               autoComplete="off"
               onChange={handleChange}
               required

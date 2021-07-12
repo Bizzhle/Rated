@@ -42,10 +42,11 @@ export const Form = styled.div`
   border-radius: 2px;
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
     var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-  width: 100%;
+  /* width: 100%; */
+  max-width: 28rem;
   margin: 10px auto;
   padding: 20px 10px;
-  background-color: #d1d5eb;
+  /* background-color: #d1d5eb; */
 
   label {
     font-weight: 700;
@@ -66,7 +67,7 @@ export const Form = styled.div`
   input,
   select {
     padding: 12px 10px;
-    margin: 5px 0;
+    /* margin: 5px 0; */
     font-size: 1.3rem;
   }
 
@@ -78,12 +79,12 @@ export const Form = styled.div`
 
   select {
     padding: 8px 5px;
-    margin: 8px 0;
+    /* margin: 8px 0; */
   }
-
+  /* 
   & div {
     margin: 10px 0;
-  }
+  } */
   input[type="submit"] {
     background-color: #006fff;
     color: white;
@@ -127,11 +128,11 @@ export const List = styled.div`
     }
   }
 
-  @media screen and (min-width: 600px) {
+  /* @media screen and (min-width: 600px) {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
-  }
+  } */
 `;
 
 export const Button = styled.div`

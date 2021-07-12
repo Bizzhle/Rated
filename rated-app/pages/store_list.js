@@ -1,4 +1,3 @@
-import React from "react";
 import Store_List from "../components/Forms/Store_List";
 import { BASE_API_URL } from "./api/constants";
 import axios from "axios";

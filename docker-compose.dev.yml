@@ -1,0 +1,42 @@
+version: "3"
+services:
+  nginx:
+    ports:
+      - "8000:80"
+    volumes:
+      - .server/nginx/default.conf:/etc/nginx/conf.d
+
+  rated-app-server:
+    build:
+      context: ./server
+      args:
+        NODE_ENV: development
+    ports:
+      - 5000:5000
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - MONGO_USER=rated-app
+      - MONGO_PASSWORD=Youngboss89
+      - SESSION_SECRET=secret
+    command: npm run dev
+  mongo:
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=rated-app
+      - MONGO_INITDB_ROOT_PASSWORD=Youngboss89
+
+  next-app:
+    build:
+      context: ./rated-app
+      dockerfile: Dockerfile
+    ports:
+      - "3005:3005"
+    volumes:
+      - ./:/app
+      - ./pages:/app/pages
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - CHOIDAR_USEPOLLING=true

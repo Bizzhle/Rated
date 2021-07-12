@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Main, Form } from "../../styles";
 import { BASE_API_URL } from "../../pages/api/constants";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const Category_Form = () => {
+  const router = useRouter();
   const [name, setName] = useState([]);
   console.log(name);
 
@@ -22,6 +24,7 @@ const Category_Form = () => {
       }
     }
     setName("");
+    router.push("/category_list");
   };
 
   const handleChange = (e) => {

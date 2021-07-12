@@ -8,7 +8,7 @@ import styles from "../styles/Home.module.css";
 import axios from "axios";
 import { BASE_API_URL } from "./api/constants";
 
-export default function Home({ itemList }) {
+export default function Home({ itemList, categoryList, storeList }) {
   console.log(itemList);
   return (
     <div>
@@ -21,7 +21,11 @@ export default function Home({ itemList }) {
       <>
         {/* <NewItem itemList={itemList} /> */}
 
-        <Item_List itemList={itemList} />
+        <Item_List
+          itemList={itemList}
+          categoryList={categoryList}
+          storeList={storeList}
+        />
       </>
     </div>
   );
@@ -31,9 +35,17 @@ export const getStaticProps = async (context) => {
   const res = await axios.get(`${BASE_API_URL}/catalog/items`);
   const itemList = await res.data;
 
+  const resp = await axios.get(`${BASE_API_URL}/catalog/categories`);
+  const categoryList = await resp.data;
+
+  const respond = await axios.get(`${BASE_API_URL}/catalog/stores`);
+  const storeList = await respond.data;
+
   return {
     props: {
       itemList,
+      categoryList,
+      storeList,
     },
   };
 };

@@ -16,5 +16,5 @@ RUN if [ "$NODE_ENV" = "development" ]; \
 # copies ever file in the directory into the /app
 COPY . ./
 
-EXPOSE 9000
+EXPOSE 5000
 CMD ["node", "./bin/www"]

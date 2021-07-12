@@ -12,7 +12,7 @@ const protect = require("../middleware/authMiddleware");
 router.get("/item/create", item_controller.item_create_get);
 
 // POST request for creating a Item
-router.post("/item/create", protect, item_controller.item_create_post);
+router.post("/item/create", item_controller.item_create_post);
 
 // GET request for one item.
 router.get("/item/:id", item_controller.item_detail);
@@ -28,6 +28,7 @@ router.get("/category/create", category_controller.category_create_get);
 router.post(
   "/category/create",
   protect,
+
   category_controller.category_create_post
 );
 

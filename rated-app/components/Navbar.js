@@ -41,12 +41,20 @@ const Navbar = () => {
         <p>Rated</p>
       </Link>
 
-      <Link href="/item_form">
-        <AddItem>
-          <AiOutlineForm style={{ height: 20, width: 20 }} />
-        </AddItem>
-      </Link>
+      <span>
+        <Link href="/login">
+          <Button>Login</Button>
+        </Link>
+        <Link href="/signup">
+          <Button>Signup</Button>
+        </Link>
 
+        <Link href="/item_form">
+          <AddItem>
+            <AiOutlineForm style={{ height: 20, width: 20 }} />
+          </AddItem>
+        </Link>
+      </span>
       <SideMenu ref={sidebarRef} isOpen={isOpen} onClick={showSidebar}>
         <div>
           <h2>Rated </h2>
@@ -101,15 +109,30 @@ const Nav = styled.div`
     margin: 0;
     padding-left: 50px;
     cursor: pointer;
+    color: #429ecb;
   }
 
   & div {
     position: absolute;
 
-    color: #4e66f4;
+    color: #429ecb;
 
     @media screen and (min-width: 769px) {
       display: none;
+    }
+  }
+
+  span {
+    display: flex;
+  }
+
+  @media screen and (max-width: 540px) {
+    p {
+      font-size: 1.5em;
+    }
+
+    & div {
+      font-size: 1em;
     }
   }
 `;
@@ -117,9 +140,13 @@ const Nav = styled.div`
 const AddItem = styled.span`
   padding: 8px;
   border-radius: 9999px;
-
-  background-color: #4e66f4;
+  background-color: #429ecb;
   color: white;
+  cursor: pointer;
+
+  :hover {
+    opacity: 1;
+  }
 `;
 
 const Menu = styled(IoMdMenu)`
@@ -186,3 +213,32 @@ const SideMenu = styled.div`
   }
 `;
 export default Navbar;
+
+export const Button = styled.button`
+  background-color: #fff;
+  color: #429ecb;
+  font-weight: 700;
+
+  line-height: 1.5rem;
+  border: none;
+  border-radius: 500px;
+  cursor: pointer;
+  padding: 0px 15px;
+  margin-right: 10px;
+  font: 1.325rem sans-serif;
+  border: 1px solid #429ecb;
+  text-align: center;
+
+  :hover,
+  :focus {
+    opacity: 0.5;
+    color: #fff;
+    background-color: #429ecb;
+    opacity: 1;
+  }
+
+  @media screen and (max-width: 540px) {
+    font: 0.9rem sans-serif;
+    padding: 0px 10px;
+  }
+`;
