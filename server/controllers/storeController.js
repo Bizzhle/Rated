@@ -3,8 +3,6 @@ const Item = require("../models/item");
 const async = require("async");
 const { body, validationResult } = require("express-validator");
 
-// const { default: next } = require("next");
-
 // display list of all category
 exports.store_list = function (req, res) {
   Store.find()
@@ -54,8 +52,8 @@ exports.store_detail = function (req, res, next) {
 };
 
 // Display category create form on GET.
-exports.store_create_get = function (req, res) {
-  res.json("store_form", { title: "Create store" });
+exports.store_create_get = function (req, res, next) {
+  res.status(200).json("store_form", { title: "Create store" });
 };
 
 // Handle store create on POST.
@@ -88,7 +86,8 @@ exports.store_create_post = [
 
         if (found_store) {
           // store exists, redirect to its store page
-          res.status(200, "store already exists").send(found_store.url);
+          // res.status(200, "store already exists").send(found_store.url);
+          res.status(200).json({ status: "Already exists" });
         } else {
           store.save(function (err) {
             if (err) {
@@ -102,3 +101,91 @@ exports.store_create_post = [
     }
   },
 ];
+
+exports.store_update_get = function (req, res, next) {
+  Store.findById(req.params.id, function (err, store) {
+    if (err) {
+      return next(err);
+    }
+    if (store == null) {
+      const err = new Error("store not found");
+      err.status = 404;
+      return next(err);
+    }
+    res.status(201).json({ store: store });
+  });
+};
+
+exports.store_update_post = [
+  // Validate and sanitze the name field.
+  body("name", "Store name must contain at least 3 characters")
+    .trim()
+    .isLength({ min: 3 })
+    .escape(),
+
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    // Extract the validation errors from a request .
+    const errors = validationResult(req);
+
+    // Create a genre object with escaped and trimmed data (and the old id!)
+    var store = new Store({
+      name: req.body.name,
+      _id: req.params.id,
+    });
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render the form again with sanitized values and error messages.
+      res.status(400).json({ store: store, errors: errors.array() });
+      return;
+    } else {
+      // Data from form is valid. Update the record.
+      Store.findByIdAndUpdate(
+        req.params.id,
+        store,
+        {},
+        function (err, thestore) {
+          if (err) {
+            return next(err);
+          }
+          // Successful - redirect to genre detail page.
+          res.status(201).json({ store: thestore });
+        }
+      );
+    }
+  },
+];
+
+exports.store_delete_get = function (req, res, next) {
+  async.parallel(
+    {
+      store: function (callback) {
+        Store.findById(req.params.id).exec(callback);
+      },
+      store_items: function (callback) {
+        Item.find({ store: req.params.id }).exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) return next(err);
+      if (results.store == null) {
+        res.redirect("/catalog/stores");
+      }
+      // Successful, so render.
+      res.status(200).json({
+        store: results.store,
+        store_items: results.store_items,
+      });
+    }
+  );
+};
+
+exports.store_delete_post = function (req, res, next) {
+  Store.findByIdAndRemove(req.params.id, function deleteStore(err) {
+    if (err) {
+      return next(err);
+    }
+    // Success - go to author list
+    res.status(201).json({ status: "successful" });
+  });
+};

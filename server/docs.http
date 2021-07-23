@@ -1,0 +1,28 @@
+
+@baseUrl = http://localhost:8000/api/v1
+
+DELETE {{baseUrl}}/catalog/category/60edb529cc35f800b61ad010/delete
+
+Content-Type: application/json
+
+
+# {
+#     "username": "bizzhle",
+#     "password": "youngboss"
+# }
+
+# {
+#     "_id": "60e880fe21c219003060f42e",
+#     "name": "02"
+    
+# }
+
+# {
+   
+#     "name": "Lidl reinheim"
+    
+# }
+
+
+
+

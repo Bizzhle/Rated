@@ -8,43 +8,22 @@ import styled from "@emotion/styled";
 import AuthContext from "../stores/authContext";
 
 export default function login() {
-  const { login } = useContext(AuthContext);
-  const router = useRouter();
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
-  const [user, setUser] = useState("");
-  // console.log(username);
-  // console.log(password);
-  console.log(user);
+  const { login, username, password, setUsername, setPassword } =
+    useContext(AuthContext);
 
-  // const handleSubmit = async (data) => {
-  //   console.log(data);
-
-  //   try {
-  //     const response = await axios.post(`${BASE_API_URL}/users/login`, data);
-  //     console.log(gone);
-  //     setUser(response.data);
-  //     localStorage.setItem(res.data);
-  //     console.log(response.data);
-  //   } catch (error) {
-  //     if (error.response) {
-  //       console.log("error", error.response.data);
-  //     }
-  //   }
-
-  //   // router.push("/");
-  // };
+  console.log(username);
+  console.log(password);
 
   return (
-    <Form>
-      <form onSubmit={login}>
+    <form onSubmit={login}>
+      <Form>
         <div>
           <input
             type="text"
             name="username"
             placeholder="Enter your username"
-            autoComplete="off"
-            tabIndex={1}
+            // autoComplete="off"
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
         </div>
@@ -53,8 +32,8 @@ export default function login() {
             type="password"
             name="user_password"
             placeholder="Enter your password"
-            autoComplete="off"
-            tabIndex={2}
+            onChange={(e) => setPassword(e.target.value)}
+            // autoComplete="off"
             required
           />
         </div>
@@ -63,8 +42,8 @@ export default function login() {
         <span className="login-screen__subtext">
           Don't have an account? <Link href="/signup">Register</Link>
         </span>
-      </form>
-    </Form>
+      </Form>
+    </form>
   );
 }
 
@@ -124,7 +103,8 @@ const Form = styled.div`
   }
 
   button[type="submit"] {
-    background-color: #006fff;
+    background-color: #429ecb;
+    letter-spacing: 1px;
     color: white;
     font-weight: 700;
     border: none;
@@ -132,9 +112,9 @@ const Form = styled.div`
     cursor: pointer;
     padding: 12px 5px;
     margin: 12px 0;
-    font: 1em sans-serif;
+    font: 1.3em sans-serif;
     width: 100%;
     box-sizing: border-box;
-    border: 1px solid #999;
+    /* border: 1px solid #999; */
   }
 `;

@@ -1,61 +1,63 @@
-import { useEffect } from "react";
-import Card from "../Card";
-import Navbar from "../Navbar";
-import { Main, CardInfo } from "../../styles";
+import { useEffect, useContext } from "react";
+import { Button, CardDiv } from "../../styles";
 import { useRouter } from "next/router";
+import AuthContext from "../../stores/authContext";
+import Link from "next/link";
 
 const Item_Detail = ({ itemDetail }) => {
+  const { user } = useContext(AuthContext);
   console.log(itemDetail);
+  // function getArray(obj) {
+  //   let itemArray = [];
 
-  // const router = useRouter();
-  // const { id } = router.query;
-
-  // async function getData() {
-  //   const response = await axios.get(`${BASE_API_URL}/catalog/item/:id`);
-
-  //   console.log(response.data);
+  //   obj.forEach(function (item) {
+  //     itemArray.push(
+  //       <span key={Math.random()} className="px-1">
+  //         {item.name}
+  //       </span>
+  //     );
+  //   });
+  //   return itemArray;
   // }
-  // // console.table(itemList);
-  // useEffect(() => {
-  //   console.log("fetching");
-  //   getData();
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log("fetching");
-  //   const fetchItems = async () => {
-  //     const response = await axios.get(`${BASE_API_URL}/catalog/items`);
-  //     console.log(response.data);
-  //   };
-  // }, [id]);
-
-  function getArray(obj) {
-    let itemArray = [];
-
-    obj.forEach(function (item) {
-      itemArray.push(
-        <span key={Math.random()} className="px-1">
-          {item.name}
-        </span>
-      );
-    });
-    return itemArray;
-  }
 
   return (
     <>
       <div>
-        <h2>{itemDetail.title}</h2>
-        <CardInfo>
+        <h1>{itemDetail.title}</h1>
+        <CardDiv>
           <h3>{itemDetail.title}</h3>
-          <p>{itemDetail.rating}</p>
-          <span>
-            <p>{itemDetail.category[0].name}</p>
-            <p>{itemDetail.store[0].name}</p>
-          </span>
+          <p>
+            <span>category: </span>
+            {itemDetail.category[0].name}
+          </p>
+          <p>
+            <span>store: </span>
+            {itemDetail.store[0].name}
+          </p>
+          <p>
+            <span>rating: </span>
+            {itemDetail.rating}
+          </p>
 
-          <p>{itemDetail.comment}</p>
-        </CardInfo>
+          <p>
+            <span>comment: </span>
+            {itemDetail.comment}
+          </p>
+        </CardDiv>
+        {/* {user ? (
+          <>
+            <Button>Update</Button>
+            <Button>Delete</Button>
+          </>
+        ) : (
+          ""
+        )} */}
+        <Link href={`/itemx/${itemDetail._id}/update`}>
+          <Button>Update</Button>
+        </Link>
+        <Link href={`/itemx/${itemDetail._id}/delete`}>
+          <Button>Delete</Button>
+        </Link>
       </div>
     </>
   );

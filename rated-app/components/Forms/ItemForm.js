@@ -12,20 +12,29 @@ const ItemForm = ({ storeList, categoryList }) => {
   const [store, setStore] = useState("");
   const [rating, setRating] = useState("");
   const [comment, setComment] = useState("");
+  console.log(category);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("tried to submit");
 
     try {
-      const res = await axios.post(`${BASE_API_URL}/catalog/item/create`, {
-        title,
-        category,
-        store,
-        rating,
-        comment,
+      const res = await fetch(`${BASE_API_URL}/catalog/item/create`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          category,
+          store,
+          rating,
+          comment,
+        }),
       });
       console.log(res);
+      router.push("/");
     } catch (err) {
       if (err.response) {
         err.response.data;
@@ -37,8 +46,6 @@ const ItemForm = ({ storeList, categoryList }) => {
     setStore("");
     setRating("");
     setComment("");
-
-    router.push("/item_list");
   };
 
   return (

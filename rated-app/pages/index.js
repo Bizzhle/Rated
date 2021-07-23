@@ -1,14 +1,13 @@
 import Head from "next/head";
 import Image from "next/image";
 import Item_List from "../components/Forms/Item_List";
-
 import NewItem from "../components/NewItem";
 import { Main } from "../styles";
 import styles from "../styles/Home.module.css";
 import axios from "axios";
 import { BASE_API_URL } from "./api/constants";
 
-export default function Home({ itemList, categoryList, storeList }) {
+export default function Home({ itemList, categoryList, storeList, data }) {
   console.log(itemList);
   return (
     <div>
@@ -31,9 +30,9 @@ export default function Home({ itemList, categoryList, storeList }) {
   );
 }
 
-export const getStaticProps = async (context) => {
-  const res = await axios.get(`${BASE_API_URL}/catalog/items`);
-  const itemList = await res.data;
+export const getStaticProps = async ({ req, res }) => {
+  const response = await axios.get(`${BASE_API_URL}/catalog/items`);
+  const itemList = await response.data;
 
   const resp = await axios.get(`${BASE_API_URL}/catalog/categories`);
   const categoryList = await resp.data;
@@ -46,6 +45,7 @@ export const getStaticProps = async (context) => {
       itemList,
       categoryList,
       storeList,
+      // data: data && data,
     },
   };
 };

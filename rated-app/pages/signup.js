@@ -13,6 +13,7 @@ export default function signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("tried");
 
     try {
       const res = await axios.post(`${BASE_API_URL}/users/signup`, {
@@ -27,7 +28,7 @@ export default function signup() {
     }
     setUsername("");
     setPassword("");
-    router.push("/login");
+    // router.push("/login");
   };
 
   return (

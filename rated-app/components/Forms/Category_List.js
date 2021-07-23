@@ -1,18 +1,17 @@
-import { useEffect, useState } from "react";
-import Navbar from "../Navbar";
+import { useEffect, useState, useContext } from "react";
 import Link from "next/link";
 import styled from "@emotion/styled";
-import { List, Button, CardDiv } from "../../styles";
-import { BASE_API_URL } from "../../pages/api/constants";
-import axios from "axios";
+import { List, Button, CardDiv, ExtendList } from "../../styles";
+import AuthContext from "../../stores/authContext";
 
 const Category_List = ({ categoryList }) => {
+  const { user } = useContext(AuthContext);
   return (
     <>
       <div>
         <h1>Category</h1>
         <div>
-          <List>
+          <ExtendList>
             {categoryList &&
               categoryList.map((value, index) => {
                 return (
@@ -23,12 +22,15 @@ const Category_List = ({ categoryList }) => {
                   </Link>
                 );
               })}
-          </List>
+          </ExtendList>
         </div>
-
-        <Link href="/category_form">
-          <Button>add a new category</Button>
-        </Link>
+        {user ? (
+          <Link href="/category_form">
+            <Button>add a new category</Button>
+          </Link>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );

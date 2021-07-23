@@ -13,10 +13,15 @@ const Category_Form = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(`${BASE_API_URL}/catalog/category/create`, {
-        name,
+      const res = await fetch(`${BASE_API_URL}/catalog/category/create`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name }),
       });
-      console.log(res);
+      await router.push("/category_list");
     } catch (err) {
       if (err.response) {
         err.response.data;
@@ -24,7 +29,6 @@ const Category_Form = () => {
       }
     }
     setName("");
-    router.push("/category_list");
   };
 
   const handleChange = (e) => {

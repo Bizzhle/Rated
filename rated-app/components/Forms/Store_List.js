@@ -1,19 +1,20 @@
-import { useState, useEffect } from "react";
-import Navbar from "../Navbar";
+import { useState, useContext } from "react";
+
 import Link from "next/link";
 import styled from "@emotion/styled";
-import { List, CardDiv, Button } from "../../styles";
-import { BASE_API_URL } from "../../pages/api/constants";
-import axios from "axios";
+import { List, CardDiv, Button, ExtendList } from "../../styles";
+import AuthContext from "../../stores/authContext";
 
 const Store_List = ({ storeList }) => {
+  const { user } = useContext(AuthContext);
+
   console.log(storeList);
   return (
     <>
       <div>
         <h1>Stores</h1>
         <div>
-          <List>
+          <ExtendList>
             {storeList &&
               storeList.map((value, index) => {
                 return (
@@ -24,11 +25,16 @@ const Store_List = ({ storeList }) => {
                   </Link>
                 );
               })}
-          </List>
+          </ExtendList>
         </div>
-        <Link href="/store_form">
-          <Button>add a new store</Button>
-        </Link>
+
+        {user ? (
+          <Link href="/store_form">
+            <Button>add a new store</Button>
+          </Link>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );

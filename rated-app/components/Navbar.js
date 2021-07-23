@@ -1,61 +1,78 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import Link from "next/link";
 import styled from "@emotion/styled";
-
 import { IoMdMenu, IoMdClose } from "react-icons/io";
 import { AiOutlineForm } from "react-icons/ai";
+import { useRouter } from "next/router";
+import AuthContext from "../stores/authContext";
 
 const Navbar = () => {
+  const { user, logout } = useContext(AuthContext);
+  const router = useRouter();
   const sidebarRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
   const showSidebar = () => setIsOpen(!isOpen);
   console.log(isOpen);
 
-  useEffect(() => {
-    const pageClickEvent = (e) => {
-      if (
-        sidebarRef.current !== null &&
-        !sidebarRef.current.contains(e.target)
-      ) {
-        setIsOpen(!isOpen);
-      }
-    };
+  // useEffect(() => {
+  //   const pageClickEvent = (e) => {
+  //     if (
+  //       sidebarRef.current !== null &&
+  //       !sidebarRef.current.contains(e.target)
+  //     ) {
+  //       setIsOpen(!isOpen);
+  //     }
+  //   };
 
-    if (isOpen) {
-      window.addEventListener("click", pageClickEvent);
-    }
+  //   if (isOpen) {
+  //     window.addEventListener("click", pageClickEvent);
+  //   }
 
-    return () => {
-      window.removeEventListener("click", pageClickEvent);
-    };
-  }, [isOpen]);
+  //   return () => {
+  //     window.removeEventListener("click", pageClickEvent);
+  //   };
+  // }, [isOpen]);
 
   return (
     <Nav>
-      <div onClick={showSidebar}>
+      {/* <div onClick={showSidebar}>
         <Menu style={{ height: 25, width: 25 }} />
-      </div>
+      </div> */}
 
       <Link href="/">
         <p>Rated</p>
       </Link>
 
       <span>
-        <Link href="/login">
-          <Button>Login</Button>
-        </Link>
-        <Link href="/signup">
-          <Button>Signup</Button>
-        </Link>
+        {!user ? (
+          <span>
+            <Button>
+              <Link href="/login">Login</Link>
+            </Button>
+            <Button>
+              <Link href="/signup">Signup</Link>
+            </Button>
+          </span>
+        ) : (
+          <span>
+            <Button>{user.username}</Button>
 
-        <Link href="/item_form">
-          <AddItem>
-            <AiOutlineForm style={{ height: 20, width: 20 }} />
-          </AddItem>
-        </Link>
+            <Button onClick={logout}>Logout</Button>
+          </span>
+        )}
+
+        {user ? (
+          <Link href="/item_form">
+            <AddItem>
+              <AiOutlineForm style={{ height: 20, width: 20 }} />
+            </AddItem>
+          </Link>
+        ) : (
+          ""
+        )}
       </span>
-      <SideMenu ref={sidebarRef} isOpen={isOpen} onClick={showSidebar}>
+      {/* <SideMenu ref={sidebarRef} isOpen={isOpen} onClick={showSidebar}>
         <div>
           <h2>Rated </h2>
           <CloseMenu onClick={showSidebar} />
@@ -87,7 +104,7 @@ const Navbar = () => {
           </li>
           <li></li>
         </ul>
-      </SideMenu>
+      </SideMenu> */}
     </Nav>
   );
 };
@@ -98,29 +115,24 @@ const Nav = styled.div`
   justify-content: space-between;
   color: black;
   padding: 10px 15px;
-
   /* border-bottom: 1px solid #454345; */
-
   align-items: center;
 
   p {
     font-size: 30px;
     font-weight: 700;
     margin: 0;
-    padding-left: 50px;
     cursor: pointer;
     color: #429ecb;
   }
 
-  & div {
+  /* & div {
     position: absolute;
-
     color: #429ecb;
-
     @media screen and (min-width: 769px) {
       display: none;
     }
-  }
+  } */
 
   span {
     display: flex;
@@ -214,16 +226,16 @@ const SideMenu = styled.div`
 `;
 export default Navbar;
 
-export const Button = styled.button`
+const Button = styled.button`
   background-color: #fff;
   color: #429ecb;
   font-weight: 700;
 
   line-height: 1.5rem;
-  border: none;
+
   border-radius: 500px;
   cursor: pointer;
-  padding: 0px 15px;
+  padding: 10px 15px;
   margin-right: 10px;
   font: 1.325rem sans-serif;
   border: 1px solid #429ecb;
@@ -239,6 +251,6 @@ export const Button = styled.button`
 
   @media screen and (max-width: 540px) {
     font: 0.9rem sans-serif;
-    padding: 0px 10px;
+    padding: 10px 10px;
   }
 `;

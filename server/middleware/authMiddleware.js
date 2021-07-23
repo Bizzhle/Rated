@@ -1,11 +1,10 @@
 const protect = (req, res, next) => {
   const { user } = req.session;
-
-  if (!user) {
-    return res.status(401).json({ status: "fail", message: "unauthorized" });
+  console.log(user);
+  if (!req.session || !req.session.user) {
+    res.status(401).json({ status: "fail", message: "unauthorized" });
+    return;
   }
-
-  req.user = user;
 
   next();
 };

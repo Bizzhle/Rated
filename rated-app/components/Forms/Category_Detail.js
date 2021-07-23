@@ -1,45 +1,47 @@
-import React from "react";
-import Card from "../Card";
+import React, { useState, useContext } from "react";
 import styled from "@emotion/styled";
-import { Main, CardInfo, CardDiv } from "../../styles";
-// import styled from "@emotion/styled/types/base";
-
-// import category from "../../server/models/category";
+import { Button } from "../../styles";
+import AuthContext from "../../stores/authContext";
+import Detail_Card from "./Detail_Card";
+import Link from "next/link";
 
 const Category_Detail = ({ categoryDetail }) => {
-  console.log({ categoryDetail });
+  const { user } = useContext(AuthContext);
 
   const cards = categoryDetail.category_items.map((value, index) => {
-    return (
-      <CardInfo key={index}>
-        <h3>{value.title}</h3>
-        <p>rating: {value.rating}</p>
-        <span>
-          <p>category: {value.category[0].name}</p>
-          <p>store: {value.store[0].name}</p>
-        </span>
-
-        <p>{value.comment}</p>
-      </CardInfo>
-    );
+    return <Detail_Card key={index} value={value} />;
   });
 
   return (
     <>
       <div>
-        <h3>Items in {categoryDetail.category.name}</h3>
-        <div>{cards}</div>
+        <h1>Items in {categoryDetail.category.name}</h1>
+        <CardDetail>{cards}</CardDetail>
+        {/* {user ? (
+          <span>
+            <Button onClick={handleUpdate}>Update</Button>
+            <Button>Delete</Button>
+          </span>
+        ) : (
+          ""
+        )} */}
+        <Link href={`/categorys/${categoryDetail.category._id}/update`}>
+          <Button>Update</Button>
+        </Link>
+        <Link href={`/categorys/${categoryDetail.category._id}/delete`}>
+          <Button>Delete</Button>
+        </Link>
       </div>
     </>
   );
 };
 
-const CardDetail = styled(CardDiv)`
-  padding: 10px;
+export default Category_Detail;
 
-  p {
-    padding: 0;
+const CardDetail = styled.div`
+  @media screen and (min-width: 600px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
   }
 `;
-
-export default Category_Detail;

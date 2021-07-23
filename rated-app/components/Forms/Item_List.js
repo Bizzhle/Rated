@@ -1,21 +1,22 @@
 import { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import styled from "@emotion/styled";
-import { Main, List, Button, CardDiv } from "../../styles";
+import { List } from "../../styles";
 import Card from "../Card";
 import AuthContext from "../../stores/authContext";
 
-const Item_List = ({ children, itemList, categoryList, storeList }) => {
+const Item_List = ({ children, itemList, categoryList, storeList, data }) => {
   const { user } = useContext(AuthContext);
   if (user) {
     console.log("someone is logged in");
+    console.log(user);
   } else {
     console.log("nothing dey here");
   }
   console.log(user);
   return (
-    <MainList>
-      <CatList>
+    <div>
+      {/* <CatList>
         <h2>Categories</h2>
         {categoryList &&
           categoryList.map((value, index) => {
@@ -27,16 +28,16 @@ const Item_List = ({ children, itemList, categoryList, storeList }) => {
               </Link>
             );
           })}
-      </CatList>
+      </CatList> */}
 
+      <h1>Items</h1>
       <List>
-        <h2>Items</h2>
         {itemList &&
           itemList.map((value, index) => {
             return <Card key={index} value={value} />;
           })}
       </List>
-      <CatList>
+      {/* <CatList>
         <h2>Stores</h2>
 
         {storeList &&
@@ -49,9 +50,9 @@ const Item_List = ({ children, itemList, categoryList, storeList }) => {
               </Link>
             );
           })}
-      </CatList>
+      </CatList> */}
       {children}
-    </MainList>
+    </div>
   );
 };
 

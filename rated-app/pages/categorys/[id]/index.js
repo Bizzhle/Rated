@@ -1,7 +1,7 @@
 import React from "react";
-import Category_Detail from "../../components/Forms/Category_Detail";
+import Category_Detail from "../../../components/Forms/Category_Detail";
 import axios from "axios";
-import { BASE_API_URL } from "../api/constants";
+import { BASE_API_URL } from "../../api/constants";
 
 const category_detail = ({ categoryDetail }) => {
   console.log(categoryDetail);

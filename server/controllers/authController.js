@@ -1,12 +1,12 @@
 const User = require("../models/userModel");
-
 const bcrypt = require("bcrypt");
+// const passport = require("passport");
 
 exports.signUp = async (req, res) => {
-  console.log("trying...");
   const { username, password } = req.body;
-  const hashpassword = await bcrypt.hash(password, 10);
+
   try {
+    const hashpassword = await bcrypt.hash(password, 12);
     const newUser = await User.create({
       username,
       password: hashpassword,
@@ -20,8 +20,7 @@ exports.signUp = async (req, res) => {
     });
   } catch (e) {
     res.status(400).json({
-      status: "failed",
-      err: e,
+      status: "fail",
     });
   }
 };
@@ -32,7 +31,7 @@ exports.login = async (req, res) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-      res.status(404).json({
+      return res.status(404).json({
         status: "fail",
         message: "user not found",
       });
@@ -56,4 +55,13 @@ exports.login = async (req, res) => {
       status: "fail",
     });
   }
+};
+
+exports.logout = async (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return console.log(err, "didnt work");
+    }
+    res.status(201).json({ status: "logged out" });
+  });
 };

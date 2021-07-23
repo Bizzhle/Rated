@@ -2,25 +2,24 @@ import { Children, createContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { BASE_API_URL } from "../pages/api/constants";
 import axios from "axios";
+// import cookie from "js-cookie";
+// import { useCookies } from "react-cookie";
 
 const AuthContext = createContext({
   user: null,
   login: () => {},
+  logout: () => {},
   logout: () => {},
   authReady: false,
 });
 
 export const AuthContextProvider = ({ children }) => {
   const router = useRouter();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, setUser] = useState("");
 
-  const [user, setUser] = useState(null);
   console.log(user);
-
-  // useEffect(() => {
-  //   document.addEventListener("login", (user) => {
-  //     setUser(user);
-  //   });
-  // }, []);
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
@@ -30,30 +29,79 @@ export const AuthContextProvider = ({ children }) => {
     }
   });
 
-  const login = async (data) => {
+  const login = async (e) => {
+    e.preventDefault();
     console.log("login attempted");
 
-    // const user = { username, password };
+    const user = { username, password };
 
-    // try {
-    //   const response = await axios.post(`${BASE_API_URL}/users/login`, data, {
-    //     username,
-    //     password,
-    //   });
-    //   console.log("logged in");
-    //   setUser(response.data);
-    //   localStorage.setItem({ username, password }, res.data);
-    //   console.log(response.data);
-    // } catch (error) {
-    //   if (error.response) {
-    //     console.log("error", error.response.data);
-    //   }
-    // }
+    try {
+      // const response = await axios.post(`${BASE_API_URL}/users/login`, user);
+      const response = await fetch(`${BASE_API_URL}/users/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(user),
+      });
+      const data = await response.json();
 
-    router.push("/");
+      setUser(user);
+
+      console.log(data);
+      router.push("/");
+    } catch (error) {
+      if (error.response) {
+        console.log("error", error.response.data);
+      }
+    }
+
+    // router.push("/");
   };
 
-  const context = { user, login };
+  const logout = async (e) => {
+    e.preventDefault();
+
+    console.log("log out attempted");
+
+    try {
+      // const response = await axios.post(`${BASE_API_URL}/users/login`, user);
+      const response = await fetch(`${BASE_API_URL}/users/logout`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      const data = await response.json();
+      console.log(data);
+      router.push("/");
+    } catch (error) {
+      if (error.response) {
+        console.log("error", error.response.data);
+      }
+    }
+
+    setUser("");
+    setUsername("");
+    setPassword("");
+
+    // localStorage.clear();
+
+    router.push("/login");
+  };
+
+  const context = {
+    user,
+    login,
+    logout,
+    username,
+    password,
+    setUsername,
+    setPassword,
+  };
   return (
     <AuthContext.Provider value={context}>{children}</AuthContext.Provider>
   );

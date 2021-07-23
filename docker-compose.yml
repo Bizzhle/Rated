@@ -1,19 +1,20 @@
 version: "3"
 services:
-  # nginx:
-  #   image: nginx:stable-alpine
-  #   ports:
-  #     - "8000:80"
-  #   networks:
-  #     - rated-app
-  #   volumes:
-  #     - ./nginx/default.conf:/etc/nginx/conf.d
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "8000:80"
+    networks:
+      - rated-app
+    volumes:
+      - ./server/nginx/default.conf:/etc/nginx/conf.d
 
   rated-app-server:
-    restart: always
-    build: ./server
-    ports:
-      - 3000:3000
+    # restart: always
+    build:
+      context: ./server
+    environment:
+      - PORT=5000
     networks:
       - rated-app
     depends_on:
@@ -21,13 +22,21 @@ services:
 
   next-app:
     # restart: always
-    build: ./rated-app
+    build:
+      context: ./rated-app
     ports:
-      - 3005:3005
+      - "3005:3005"
+    # volumes:
+    #   - ./:/app
+    #   - ./pages:/app/pages
+    #   - /app/node_modules
+    #   - /app/.next
     networks:
       - rated-app
 
   mongo:
+    # build:
+    #   context: ./server
     image: mongo
     ports:
       - "27017:27017"
@@ -37,6 +46,8 @@ services:
       - mongo-db:/data/db
 
   redis:
+    # build:
+    #   context: ./server
     image: redis
     networks:
       - rated-app

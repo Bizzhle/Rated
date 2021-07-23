@@ -1,7 +1,7 @@
 import React from "react";
-import Store_Detail from "../../components/Forms/Store_Detail";
+import Store_Detail from "../../../components/Forms/Store_Detail";
 import axios from "axios";
-import { BASE_API_URL } from "../api/constants";
+import { BASE_API_URL } from "../../api/constants";
 
 const store_details = ({ storeDetail }) => {
   console.log(storeDetail);

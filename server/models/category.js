@@ -2,8 +2,8 @@ var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
-var CategorySchema = Schema({
-  name: { type: String, required: true, minlength: 2, maxlength: 20 },
+var CategorySchema = new Schema({
+  name: { type: String, required: true, minlength: 2, maxlength: 40 },
 });
 
 CategorySchema.virtual("url").get(function () {

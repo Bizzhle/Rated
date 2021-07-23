@@ -2,12 +2,12 @@ import styled from "@emotion/styled";
 
 export const Main = styled.div`
   margin: 0 auto;
-  padding: 0 10px;
-  min-height: 100vh;
+  padding: 10px 10px;
+  margin-top: 100px;
 
   @media screen and (min-width: 600px) {
     max-width: 56rem;
-    margin: 0 auto;
+    margin-top: 100px;
   }
 `;
 
@@ -95,7 +95,7 @@ export const Form = styled.div`
   }
 
   button[type="submit"] {
-    background-color: #006fff;
+    background-color: #429ecb;
     color: white;
     font-weight: 700;
     border: none;
@@ -106,7 +106,7 @@ export const Form = styled.div`
     font: 1em sans-serif;
     width: 100%;
     box-sizing: border-box;
-    border: 1px solid #999;
+    border: 1px solid #429ecb;
   }
 `;
 
@@ -115,61 +115,58 @@ export const List = styled.div`
 
   li {
     list-style-type: none;
-    border-radius: 5px;
-    padding: 15px 10px;
     margin: 10px 0;
 
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
-      var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-
-    :hover {
-      background-color: blue;
-      color: white;
-    }
+    /* box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+      var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); */
   }
 
-  /* @media screen and (min-width: 600px) {
+  @media screen and (min-width: 600px) {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
-  } */
+  }
+`;
+
+export const ExtendList = styled(List)`
+  @media screen and (min-width: 600px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+  }
 `;
 
 export const Button = styled.div`
-  background-color: #006fff;
+  background-color: #429ecb;
   color: white;
+  letter-spacing: 1px;
   font-weight: 700;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   padding: 12px 5px;
   margin: 12px 0;
-  font: 1em sans-serif;
+  font: 1.1em sans-serif;
   width: 100%;
-  box-sizing: border-box;
-  border: 1px solid #999;
   text-align: center;
 
   :hover {
     opacity: 0.5;
-    color: #005aff;
+    color: #fff;
   }
 `;
 
 export const CardDiv = styled.div`
-  background-color: #dce0fa;
+  background-color: #f7f7f7;
   font-size: 18px;
-  :hover {
-    background-color: blue;
-    color: white;
-  }
-
-  p {
-    padding: 5px 10px;
-    margin: 10px 0;
-  }
-
-  p:last-child {
-    font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid #aeaeae;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  :hover,
+  :focus,
+  :active {
+    border: 2px solid #429ecb;
   }
 `;

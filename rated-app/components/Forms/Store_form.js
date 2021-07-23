@@ -14,9 +14,15 @@ const Store_form = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(`${BASE_API_URL}/catalog/store/create`, {
-        name,
+      const res = await fetch(`${BASE_API_URL}/catalog/store/create`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name }),
       });
+      router.push("/store_list");
       console.log(res);
     } catch (error) {
       if (error.response) {
@@ -24,7 +30,6 @@ const Store_form = () => {
       }
     }
     setName("");
-    router.push("/store_list");
   };
 
   const handleChange = (e) => {

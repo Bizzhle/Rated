@@ -4,6 +4,8 @@ services:
     image: nginx:stable-alpine
     ports:
       - "8000:80"
+    networks:
+      - rated-app
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
 
@@ -11,6 +13,8 @@ services:
     build: .
     environment:
       - PORT=5000
+    networks:
+      - rated-app
     depends_on:
       - mongo
 
@@ -19,11 +23,18 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=rated-app
       - MONGO_INITDB_ROOT_PASSWORD=Youngboss89
+    networks:
+      - rated-app
     volumes:
       - mongo-db:/data/db
 
   redis:
     image: redis
+    networks:
+      - rated-app
 
+networks:
+  rated-app:
+    driver: bridge
 volumes:
   mongo-db:

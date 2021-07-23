@@ -22,12 +22,12 @@ const CategoryBar = () => {
 };
 
 const Bar = styled.div`
-  border-top: 1px solid #d6d1ce;
   /* background-color: #429ecb; */
-  border-bottom: 3px solid #d6d1ce;
+
   cursor: pointer;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: black;
+  letter-spacing: 1px;
 
   /* box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
     var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); */
@@ -43,16 +43,24 @@ const Bar = styled.div`
     font-size: 1.325rem;
 
     li {
-      border-right: 1px solid #d6d1ce;
+      /* border-top: 1px solid #d6d1ce;
+      border-right: 2px solid #d6d1ce;
+      border-bottom: 3px solid #d6d1ce;
+      border-left: 2px solid #d6d1ce; */
+      border: 2px solid #d6d1ce;
       width: 100%;
       padding: 10px 0;
 
-      /* &:hover,
-      &:focus {
-        background-color: #04567e;
-      } */
+      &:hover,
+      &:focus,
+      :active {
+        border-color: #429ecb;
+      }
     }
 
+    li:first-child {
+      border-left: none;
+    }
     li:last-child {
       border-right: none;
     }
