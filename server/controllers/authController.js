@@ -31,9 +31,9 @@ exports.login = async (req, res) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-      return res.status(404).json({
+      return res.status(400).send({
         status: "fail",
-        message: "user not found",
+        message: "user not found, kindly enter correct username and password",
       });
     }
 
@@ -41,19 +41,16 @@ exports.login = async (req, res) => {
 
     if (isCorrect) {
       req.session.user = user;
-      res.status(200).json({
-        status: "success",
-      });
-    } else {
-      res.status(400).json({
-        status: "fail",
-        message: "incorrect username or password",
+      res.status(200).send({
+        user: username,
       });
     }
-  } catch (e) {
-    res.status(400).json({
-      status: "fail",
-    });
+
+    if (!isCorrect) {
+      return res.status(400).send("incorrect username or password");
+    }
+  } catch (error) {
+    res.status(500).send("Something went wrong, Try again later");
   }
 };
 

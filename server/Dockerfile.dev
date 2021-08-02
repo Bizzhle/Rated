@@ -1,0 +1,16 @@
+FROM node:15
+
+LABEL version="1.0"
+LABEL description="Development image for Rated app"
+
+WORKDIR /app
+
+COPY ["package.json", "package-lock.json*", "./"]
+
+RUN npm instal && npm cache clean --force
+
+COPY . .
+
+EXPOSE 5000
+
+CMD ["npm", "run", "dev"]

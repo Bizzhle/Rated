@@ -7,7 +7,6 @@ const session = require("express-session");
 const redis = require("redis");
 const cors = require("cors");
 const RedisStore = require("connect-redis")(session);
-// const passport = require("passport");
 
 //Setup mongoose connection
 const {
@@ -20,10 +19,10 @@ const {
   SESSION_SECRET,
 } = require("./config");
 
-const corsOptions = {
-  origin: "http://localhost:3005",
-  credentials: true,
-};
+// const corsOptions = {
+//   origin: "http://localhost:3005",
+//   credentials: true,
+// };
 
 const redisClient = redis.createClient({
   host: REDIS_URL,
@@ -81,7 +80,7 @@ app.use(
     store: new RedisStore({ client: redisClient }),
   })
 );
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));

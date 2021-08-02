@@ -1,20 +1,14 @@
-# specify the node base image with your desired version node:<version>
 FROM node:15
-# specify working directory - recommended
-WORKDIR /app 
-# compies the /app // specify working directory - recommended
-COPY package.json . 
-# installs all dependencies
+
+LABEL version="1.0"
+LABEL description="Production image for Rated app"
+
+WORKDIR /app
+
+COPY ["package.json", "package-lock.json*", "./"]
+
 RUN npm install
 
-ARG NODE_ENV
-RUN if [ "$NODE_ENV" = "development" ]; \
-    then npm install; \
-    else npm install --only=production; \
-    fi
+COPY . .
 
-# copies ever file in the directory into the /app
-COPY . ./
-
-EXPOSE 5000
-CMD ["node", "./bin/www"]
+CMD ["npm", "run", "start"]
