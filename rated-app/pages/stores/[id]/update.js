@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { BASE_API_URL } from "../../api/constants";
 import { useRouter } from "next/router";
-import { Form } from "../../../styles";
+import { Form, FormPadding, LoginForm, MainPadding } from "../../../styles";
 
 const Update_form = ({ storeID }) => {
   const router = useRouter();
@@ -15,7 +15,7 @@ const Update_form = ({ storeID }) => {
 
     try {
       const res = await fetch(
-        `${BASE_API_URL}/catalog/store/${router.query.id}/update`,
+        `/api/v1/catalog/store/${router.query.id}/update`,
         {
           method: "POST",
           credentials: "include",
@@ -40,12 +40,13 @@ const Update_form = ({ storeID }) => {
   };
 
   return (
-    <>
-      <h2>Update Store</h2>
-      <Form>
+    <FormPadding>
+      <LoginForm>
+        <h2>Update Store</h2>
+
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="store_name">Stores:</label>
+            {/* <label htmlFor="store_name">Stores:</label> */}
             <input
               type="text"
               name="store"
@@ -54,10 +55,10 @@ const Update_form = ({ storeID }) => {
             />
           </div>
 
-          <input type="submit" />
+          <button type="submit">submit</button>
         </form>
-      </Form>
-    </>
+      </LoginForm>
+    </FormPadding>
   );
 };
 

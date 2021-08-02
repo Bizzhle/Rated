@@ -1,59 +1,76 @@
-version: "3"
+version: "3.9"
+
 services:
   nginx:
-    image: nginx:stable-alpine
-    ports:
-      - "8000:80"
-    networks:
-      - rated-app
-    volumes:
-      - ./server/nginx/default.conf:/etc/nginx/conf.d
-
-  rated-app-server:
-    # restart: always
-    build:
-      context: ./server
-    environment:
-      - PORT=5000
-    networks:
-      - rated-app
+    restart: always
     depends_on:
-      - mongo
+      - rated-app-server
+      - client
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+    ports:
+      - 8000:80
+    networks:
+      - rated-app
 
-  next-app:
-    # restart: always
+  client:
+    restart: always
     build:
       context: ./rated-app
-    ports:
-      - "3005:3005"
-    # volumes:
-    #   - ./:/app
-    #   - ./pages:/app/pages
-    #   - /app/node_modules
-    #   - /app/.next
+      dockerfile: Dockerfile.dev
+    container_name: rated_app_frontend
+    volumes:
+      - ./rated-app:/app
+      - /app/node_modules
+    depends_on:
+      - rated-app-server
+    networks:
+      - rated-app
+
+  rated-app-server:
+    restart: always
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    container_name: rated_app_nginx
+    volumes:
+      - ./server/:/app
+      - /app/node_modules
+    # ports:
+    #   - 5000:5000
+    depends_on:
+      - mongo
+      - redis
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      MONGO_USER: ${MONGO_USER}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+      SESSION_SECRET: ${SESSION_SECRET}
+
     networks:
       - rated-app
 
   mongo:
-    # build:
-    #   context: ./server
     image: mongo
+    restart: always
     ports:
-      - "27017:27017"
-    networks:
-      - rated-app
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     volumes:
       - mongo-db:/data/db
+    networks:
+      - rated-app
 
   redis:
-    # build:
-    #   context: ./server
     image: redis
     networks:
       - rated-app
 
+volumes:
+  mongo-db:
 networks:
   rated-app:
     driver: bridge
-volumes:
-  mongo-db:

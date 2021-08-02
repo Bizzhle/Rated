@@ -9,7 +9,7 @@ const AuthContext = createContext({
   user: null,
   login: () => {},
   logout: () => {},
-  logout: () => {},
+
   authReady: false,
 });
 
@@ -18,16 +18,16 @@ export const AuthContextProvider = ({ children }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState("");
+  const [error, setError] = useState("");
 
   console.log(user);
+  console.log(error);
 
   useEffect(() => {
-    const loggedInUser = localStorage.getItem("user");
-    if (loggedInUser) {
-      const foundUser = JSON.parse(loggedInUser);
-      setUser(foundUser);
+    if (user) {
+      router.push("/");
     }
-  });
+  }, [user]);
 
   const login = async (e) => {
     e.preventDefault();
@@ -36,28 +36,28 @@ export const AuthContextProvider = ({ children }) => {
     const user = { username, password };
 
     try {
-      // const response = await axios.post(`${BASE_API_URL}/users/login`, user);
-      const response = await fetch(`${BASE_API_URL}/users/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(user),
+      const response = await axios.post(`/api/v1/users/login`, user, {
+        withCredentials: true,
       });
-      const data = await response.json();
-
-      setUser(user);
-
-      console.log(data);
-      router.push("/");
+      // const response = await fetch("/api/v1/users/login", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   credentials: "include",
+      //   body: JSON.stringify(user),
+      // });
+      // const data = await response.json();
+      // console.log(response.data.user);
+      setUser(response.data.user);
+      setError("");
     } catch (error) {
+      console.log(error);
       if (error.response) {
         console.log("error", error.response.data);
+        setError(error.response.data.message);
       }
     }
-
-    // router.push("/");
   };
 
   const logout = async (e) => {
@@ -67,8 +67,8 @@ export const AuthContextProvider = ({ children }) => {
 
     try {
       // const response = await axios.post(`${BASE_API_URL}/users/login`, user);
-      const response = await fetch(`${BASE_API_URL}/users/logout`, {
-        method: "GET",
+      const response = await fetch(`/api/v1/users/logout`, {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -77,7 +77,6 @@ export const AuthContextProvider = ({ children }) => {
 
       const data = await response.json();
       console.log(data);
-      router.push("/");
     } catch (error) {
       if (error.response) {
         console.log("error", error.response.data);
@@ -101,6 +100,8 @@ export const AuthContextProvider = ({ children }) => {
     password,
     setUsername,
     setPassword,
+    error,
+    setError,
   };
   return (
     <AuthContext.Provider value={context}>{children}</AuthContext.Provider>

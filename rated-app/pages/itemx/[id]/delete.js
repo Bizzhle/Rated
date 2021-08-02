@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { BASE_API_URL } from "../../api/constants";
 import { useRouter } from "next/router";
-import { Form, Button } from "../../../styles";
+import { Form, Button, FormPadding, LoginForm } from "../../../styles";
 
 const Delete_form = ({ itemDeleteID }) => {
   const router = useRouter();
@@ -30,15 +30,15 @@ const Delete_form = ({ itemDeleteID }) => {
   };
 
   return (
-    <>
-      <Form>
+    <FormPadding>
+      <LoginForm>
         <h2>Delete {itemDeleteID.item.title}</h2>
-        <p>Do you really want to delete this item</p>
+        <p>Do you really want to delete this item?</p>
         <form>
           <Button onClick={handleSubmit}>Delete</Button>
         </form>
-      </Form>
-    </>
+      </LoginForm>
+    </FormPadding>
   );
 };
 

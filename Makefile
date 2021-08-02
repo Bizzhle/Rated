@@ -1,6 +1,8 @@
+build:
+	cd server && $(MAKE) build
+
 run:
-	cd server && $(MAKE) run
-	cd rated-app && $(MAKE) run
+	cd server && $(MAKE) up
 
 stop:
-	docker-compose -f docker-compose.yml -f docker-compose.dev.yml down
+	cd server && $(MAKE) down

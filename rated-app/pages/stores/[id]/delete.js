@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_API_URL } from "../../api/constants";
 import { useRouter } from "next/router";
-import { Form, Button } from "../../../styles";
+import { Form, Button, LoginForm, FormPadding } from "../../../styles";
 
 const Delete_form = ({ storeDeleteID }) => {
   const router = useRouter();
   const [name, setName] = useState(storeDeleteID.store.name);
+  const [items, setItems] = useState(false);
+
+  useEffect(() => {
+    if (storeDeleteID.store_items.length > 0) setItems(!items);
+    else setItems(items);
+  }, []);
 
   console.log(name);
 
@@ -16,7 +22,7 @@ const Delete_form = ({ storeDeleteID }) => {
     try {
       console.log("deleting");
       const res = await fetch(
-        `${BASE_API_URL}/catalog/store/${router.query.id}/delete`,
+        `/api/v1/catalog/store/${router.query.id}/delete`,
         {
           method: "DELETE",
         }
@@ -29,17 +35,35 @@ const Delete_form = ({ storeDeleteID }) => {
     }
   };
 
-  return (
-    <>
-      <Form>
-        <h2>Delete Store: {storeDeleteID.store.name}</h2>
-        <p>Do you really want to delete this store</p>
+  const viewItems = (
+    <span>
+      <p>Delete item(s) before you can delete the category</p>
+      <ul>
+        {storeDeleteID.store_items.map((value, index) => {
+          return (
+            <li key={index}>
+              <h3>{value.title}</h3>
+            </li>
+          );
+        })}
+      </ul>
+    </span>
+  );
 
-        <form>
-          <Button onClick={handleSubmit}>Delete</Button>
-        </form>
-      </Form>
-    </>
+  const deleteCategory = (
+    <form>
+      <p>Do you really want to delete this category?</p>
+      <Button onClick={handleSubmit}>Delete</Button>
+    </form>
+  );
+
+  return (
+    <FormPadding>
+      <LoginForm>
+        <h2>Delete Store: {storeDeleteID.store.name}</h2>
+        {items ? viewItems : deleteCategory}
+      </LoginForm>
+    </FormPadding>
   );
 };
 

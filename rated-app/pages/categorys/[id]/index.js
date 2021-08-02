@@ -1,11 +1,50 @@
-import React from "react";
-import Category_Detail from "../../../components/Forms/Category_Detail";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { BASE_API_URL } from "../../api/constants";
+import Link from "next/link";
+import Detail_Card from "../../../components/Detail_Card";
+import AuthContext from "../../../stores/authContext";
+import styled from "@emotion/styled";
+import { Button, MainPadding } from "../../../styles";
 
 const category_detail = ({ categoryDetail }) => {
-  console.log(categoryDetail);
-  return <Category_Detail categoryDetail={categoryDetail} />;
+  const { user } = useContext(AuthContext);
+  const [displayList, setDisplayList] = useState(false);
+  console.log(categoryDetail.category_items.length);
+
+  useEffect(() => {
+    if (categoryDetail.category_items.length > 0) {
+      setDisplayList(!displayList);
+    } else {
+      setDisplayList(displayList);
+    }
+  }, []);
+
+  const cards = categoryDetail.category_items.map((value, index) => {
+    return <Detail_Card key={index} value={value} />;
+  });
+  return (
+    <MainPadding>
+      <div>
+        <h1>Items in {categoryDetail.category.name}</h1>
+
+        {displayList ? "" : <p>There are no items to display</p>}
+        <CardDetail>{cards}</CardDetail>
+        {user ? (
+          <span>
+            <Link href={`/categorys/${categoryDetail.category._id}/update`}>
+              <Button>Update</Button>
+            </Link>
+            <Link href={`/categorys/${categoryDetail.category._id}/delete`}>
+              <Button>Delete</Button>
+            </Link>
+          </span>
+        ) : (
+          ""
+        )}
+      </div>
+    </MainPadding>
+  );
 };
 
 export const getServerSideProps = async (context) => {
@@ -24,3 +63,11 @@ export const getServerSideProps = async (context) => {
 };
 
 export default category_detail;
+
+const CardDetail = styled.div`
+  @media screen and (min-width: 600px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+  }
+`;

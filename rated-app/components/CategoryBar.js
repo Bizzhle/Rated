@@ -58,7 +58,7 @@ const Bar = styled.div`
       }
     }
 
-    li:first-child {
+    li:first-of-type {
       border-left: none;
     }
     li:last-child {

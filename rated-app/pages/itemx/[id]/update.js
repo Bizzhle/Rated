@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { BASE_API_URL } from "../../api/constants";
 import { useRouter } from "next/router";
-import { Form } from "../../../styles";
+import { Form, FormPadding, LoginForm } from "../../../styles";
 
 const Update_form = ({ itemID, categoryList, storeList }) => {
   const router = useRouter();
@@ -45,8 +45,8 @@ const Update_form = ({ itemID, categoryList, storeList }) => {
   };
 
   return (
-    <>
-      <Form>
+    <FormPadding>
+      <LoginForm>
         <h1>Update Item</h1>
         <form onSubmit={handleSubmit}>
           <div>
@@ -124,8 +124,8 @@ const Update_form = ({ itemID, categoryList, storeList }) => {
 
           <button type="submit">Submit</button>
         </form>
-      </Form>
-    </>
+      </LoginForm>
+    </FormPadding>
   );
 };
 

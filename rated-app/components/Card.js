@@ -4,8 +4,6 @@ import Link from "next/link";
 import styled from "@emotion/styled";
 
 const Card = ({ value }) => {
-  console.log(value);
-
   return (
     <Link href={`/itemx/${value._id}`}>
       <CardDiv>

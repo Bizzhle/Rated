@@ -1,4 +1,4 @@
-import { CardDiv } from "../../styles";
+import { CardDiv } from "../styles";
 
 export default function Detail_Card({ value, index }) {
   return (

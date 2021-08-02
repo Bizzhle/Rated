@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { BASE_API_URL } from "../../api/constants";
 import { useRouter } from "next/router";
-import { Form } from "../../../styles";
+import { Form, FormPadding, LoginForm } from "../../../styles";
 
 const Update_form = ({ categoryID }) => {
   const router = useRouter();
@@ -15,7 +15,7 @@ const Update_form = ({ categoryID }) => {
 
     try {
       const res = await fetch(
-        `${BASE_API_URL}/catalog/category/${router.query.id}/update`,
+        `/api/v1/catalog/category/${router.query.id}/update`,
         {
           method: "POST",
           credentials: "include",
@@ -38,12 +38,13 @@ const Update_form = ({ categoryID }) => {
   };
 
   return (
-    <>
-      <h2>Update Category</h2>
-      <Form>
+    <FormPadding>
+      <LoginForm>
+        <h2>Update Category</h2>
+
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="category_name">Category:</label>
+            {/* <label htmlFor="category_name">Category:</label> */}
             <input
               type="text"
               name="category"
@@ -52,10 +53,10 @@ const Update_form = ({ categoryID }) => {
             />
           </div>
 
-          <input type="submit" />
+          <button type="submit">submit</button>
         </form>
-      </Form>
-    </>
+      </LoginForm>
+    </FormPadding>
   );
 };
 

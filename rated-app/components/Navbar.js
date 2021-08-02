@@ -56,7 +56,7 @@ const Navbar = () => {
           </span>
         ) : (
           <span>
-            <Button>{user.username}</Button>
+            <Button>{user}</Button>
 
             <Button onClick={logout}>Logout</Button>
           </span>
@@ -150,14 +150,18 @@ const Nav = styled.div`
 `;
 
 const AddItem = styled.span`
-  padding: 8px;
-  border-radius: 9999px;
+  padding: 15px;
+  border-radius: 5000px;
   background-color: #429ecb;
   color: white;
   cursor: pointer;
 
   :hover {
     opacity: 1;
+  }
+
+  @media screen and (max-width: 400px) {
+    padding: 8px;
   }
 `;
 

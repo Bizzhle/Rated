@@ -7,11 +7,9 @@ import { AuthContextProvider } from "../stores/authContext";
 function MyApp({ Component, pageProps }) {
   return (
     <AuthContextProvider>
-      <CookiesProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </CookiesProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </AuthContextProvider>
   );
 }

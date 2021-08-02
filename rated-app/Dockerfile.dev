@@ -1,0 +1,16 @@
+FROM node:14-alpine3.10
+
+LABEL version="1.0"
+LABEL description="Nextjs frontend for Rated-app"
+
+WORKDIR /app
+
+COPY package.json ./ 
+
+RUN npm install
+
+COPY . .
+RUN ls -l
+
+EXPOSE 3005
+CMD ["npm", "run", "dev"]
