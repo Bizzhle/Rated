@@ -13,7 +13,6 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const showSidebar = () => setIsOpen(!isOpen);
-  console.log(isOpen);
 
   // useEffect(() => {
   //   const pageClickEvent = (e) => {

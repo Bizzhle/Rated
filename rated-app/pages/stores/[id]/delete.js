@@ -14,13 +14,10 @@ const Delete_form = ({ storeDeleteID }) => {
     else setItems(items);
   }, []);
 
-  console.log(name);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      console.log("deleting");
       const res = await fetch(
         `/api/v1/catalog/store/${router.query.id}/delete`,
         {
@@ -68,8 +65,6 @@ const Delete_form = ({ storeDeleteID }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  console.log("fetching for category id");
-
   const res = await axios.get(
     `${BASE_API_URL}/catalog/store/${context.params.id}/delete`
   );

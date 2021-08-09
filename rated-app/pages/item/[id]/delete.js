@@ -8,15 +8,12 @@ const Delete_form = ({ itemDeleteID }) => {
   const router = useRouter();
   const [title, setTitle] = useState(itemDeleteID.item.name);
 
-  console.log(itemDeleteID);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      console.log("deleting");
       const res = await fetch(
-        `${BASE_API_URL}/catalog/item/${router.query.id}/delete`,
+        `/api/v1/catalog/item/${router.query.id}/delete`,
         {
           method: "DELETE",
         }

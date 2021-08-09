@@ -8,7 +8,6 @@ import AuthContext from "../stores/authContext";
 const store_list = ({ storeList }) => {
   const { user } = useContext(AuthContext);
   const [displayList, setDisplayList] = useState(false);
-  console.log(storeList);
 
   useEffect(() => {
     if (storeList.length > 0) {

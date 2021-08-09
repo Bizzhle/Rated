@@ -12,11 +12,9 @@ const item_form = ({ storeList, categoryList }) => {
   const [store, setStore] = useState("");
   const [rating, setRating] = useState("");
   const [comment, setComment] = useState("");
-  console.log(category);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("tried to submit");
 
     try {
       const res = await fetch(`/api/v1/catalog/item/create`, {

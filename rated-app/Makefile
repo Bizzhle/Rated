@@ -1,2 +1,14 @@
-run:
-	docker-compose -f docker-compose.yml up -d
+ifneq (,$(wildcard ./.env))
+		include .env
+		export
+		ENV_FILE_PARAM = --env-file.env
+endif
+
+build:
+	docker-compose up --build
+
+up:
+	docker-compose up
+
+down: 
+	docker-compose down

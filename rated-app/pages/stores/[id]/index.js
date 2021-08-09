@@ -10,11 +10,10 @@ import Detail_Card from "../../../components/Detail_Card";
 
 const store_details = ({ storeDetail }) => {
   const { user } = useContext(AuthContext);
-  console.log(storeDetail);
+
   const router = useRouter();
   const [name, setName] = useState("");
   const [displayList, setDisplayList] = useState(false);
-  console.log(storeDetail.store_items.length);
 
   useEffect(() => {
     if (storeDetail.store_items.length > 0) {
@@ -53,8 +52,6 @@ const store_details = ({ storeDetail }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  console.log("fetching for stores");
-
   const res = await axios.get(
     `${BASE_API_URL}/catalog/store/${context.params.id}`
   );

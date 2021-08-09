@@ -8,8 +8,6 @@ const Update_form = ({ storeID }) => {
   const router = useRouter();
   const [name, setName] = useState(storeID.store.name);
 
-  console.log(name);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -63,8 +61,6 @@ const Update_form = ({ storeID }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  console.log("fetching for store id");
-
   const res = await axios.get(
     `${BASE_API_URL}/catalog/store/${context.params.id}/update`
   );

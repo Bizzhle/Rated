@@ -18,7 +18,6 @@ const Delete_form = ({ categoryDeleteID }) => {
     e.preventDefault();
 
     try {
-      console.log("deleting");
       const res = await fetch(
         `/api/v1/catalog/category/${router.query.id}/delete`,
         {
@@ -67,8 +66,6 @@ const Delete_form = ({ categoryDeleteID }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  console.log("fetching for category id");
-
   const res = await axios.get(
     `${BASE_API_URL}/catalog/category/${context.params.id}/delete`
   );

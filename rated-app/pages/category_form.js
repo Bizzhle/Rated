@@ -3,10 +3,11 @@ import { Form, FormPadding, LoginForm } from "../styles";
 import { useRouter } from "next/router";
 import { BASE_API_URL } from "./api/constants";
 
-const category_form = () => {
+import axios from "axios";
+
+const category_form = ({ categoryList }) => {
   const router = useRouter();
   const [name, setName] = useState("");
-  console.log(name);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +21,11 @@ const category_form = () => {
         },
         body: JSON.stringify({ name }),
       });
-      router.push("/category_list");
+
+      console.log(res);
+      if (res.status === 200) {
+        router.push("/category_list");
+      }
     } catch (error) {
       if (err.response) {
         err.response.data;
@@ -43,7 +48,7 @@ const category_form = () => {
           <div>
             {/* <label htmlFor="category">Category:</label> */}
             <input
-              type="text"
+              list="categories"
               name="name"
               value={name}
               placeholder="Enter a new category"
@@ -51,6 +56,15 @@ const category_form = () => {
               onChange={handleChange}
               required
             />
+            <datalist id="categories">
+              {categoryList.map((value, index) => {
+                return (
+                  <option key={index} value={value.name}>
+                    {value.name}
+                  </option>
+                );
+              })}
+            </datalist>
           </div>
 
           <button type="submit">submit</button>
@@ -61,3 +75,14 @@ const category_form = () => {
 };
 
 export default category_form;
+
+export const getServerSideProps = async () => {
+  const response = await axios.get(`${BASE_API_URL}/catalog/categories`);
+  const categoryList = await response.data;
+
+  return {
+    props: {
+      categoryList,
+    },
+  };
+};

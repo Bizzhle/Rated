@@ -8,6 +8,7 @@ services:
       - client
     build:
       context: ./nginx
+      # dockerfile: Dockerfile
       dockerfile: Dockerfile.dev
     ports:
       - 8000:80
@@ -18,6 +19,7 @@ services:
     restart: always
     build:
       context: ./rated-app
+      # dockerfile: Dockerfile
       dockerfile: Dockerfile.dev
     container_name: rated_app_frontend
     volumes:
@@ -32,6 +34,7 @@ services:
     restart: always
     build:
       context: ./server
+      # dockerfile: Dockerfile
       dockerfile: Dockerfile.dev
     container_name: rated_app_nginx
     volumes:
@@ -47,7 +50,6 @@ services:
       MONGO_USER: ${MONGO_USER}
       MONGO_PASSWORD: ${MONGO_PASSWORD}
       SESSION_SECRET: ${SESSION_SECRET}
-
     networks:
       - rated-app
 

@@ -7,7 +7,6 @@ import AuthContext from "../stores/authContext";
 import Card from "../components/Card";
 
 export default function Home({ itemList, categoryList, storeList, data }) {
-  console.log(itemList);
   const { user } = useContext(AuthContext);
   const [displayList, setDisplayList] = useState(false);
 
@@ -32,9 +31,9 @@ export default function Home({ itemList, categoryList, storeList, data }) {
   );
 }
 
-export const getStaticProps = async ({ req, res }) => {
-  const response = await axios.get(`${BASE_API_URL}/catalog/items`);
-  const itemList = await response.data;
+export const getServerSideProps = async () => {
+  const response = await fetch(`${BASE_API_URL}/catalog/items`);
+  const itemList = await response.json();
 
   // const resp = await axios.get(`${BASE_API_URL}/catalog/categories`);
   // const categoryList = await resp.data;

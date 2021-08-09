@@ -10,7 +10,6 @@ import { Button, MainPadding } from "../../../styles";
 const category_detail = ({ categoryDetail }) => {
   const { user } = useContext(AuthContext);
   const [displayList, setDisplayList] = useState(false);
-  console.log(categoryDetail.category_items.length);
 
   useEffect(() => {
     if (categoryDetail.category_items.length > 0) {
@@ -50,10 +49,10 @@ const category_detail = ({ categoryDetail }) => {
 export const getServerSideProps = async (context) => {
   console.table("fetching for category");
 
-  const res = await axios.get(
+  const res = await fetch(
     `${BASE_API_URL}/catalog/category/${context.params.id}`
   );
-  const categoryDetail = await res.data;
+  const categoryDetail = await res.json();
 
   return {
     props: {

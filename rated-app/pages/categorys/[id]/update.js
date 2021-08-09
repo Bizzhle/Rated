@@ -8,8 +8,6 @@ const Update_form = ({ categoryID }) => {
   const router = useRouter();
   const [name, setName] = useState(categoryID.category.name);
 
-  console.log(name);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -61,8 +59,6 @@ const Update_form = ({ categoryID }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  console.log("fetching for category id");
-
   const res = await axios.get(
     `${BASE_API_URL}/catalog/category/${context.params.id}/update`
   );

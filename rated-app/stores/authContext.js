@@ -2,8 +2,6 @@ import { Children, createContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { BASE_API_URL } from "../pages/api/constants";
 import axios from "axios";
-// import cookie from "js-cookie";
-// import { useCookies } from "react-cookie";
 
 const AuthContext = createContext({
   user: null,
@@ -20,9 +18,6 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState("");
   const [error, setError] = useState("");
 
-  console.log(user);
-  console.log(error);
-
   useEffect(() => {
     if (user) {
       router.push("/");
@@ -31,7 +26,6 @@ export const AuthContextProvider = ({ children }) => {
 
   const login = async (e) => {
     e.preventDefault();
-    console.log("login attempted");
 
     const user = { username, password };
 
@@ -39,20 +33,10 @@ export const AuthContextProvider = ({ children }) => {
       const response = await axios.post(`/api/v1/users/login`, user, {
         withCredentials: true,
       });
-      // const response = await fetch("/api/v1/users/login", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   credentials: "include",
-      //   body: JSON.stringify(user),
-      // });
-      // const data = await response.json();
-      // console.log(response.data.user);
+
       setUser(response.data.user);
       setError("");
     } catch (error) {
-      console.log(error);
       if (error.response) {
         console.log("error", error.response.data);
         setError(error.response.data.message);
@@ -63,10 +47,7 @@ export const AuthContextProvider = ({ children }) => {
   const logout = async (e) => {
     e.preventDefault();
 
-    console.log("log out attempted");
-
     try {
-      // const response = await axios.post(`${BASE_API_URL}/users/login`, user);
       const response = await fetch(`/api/v1/users/logout`, {
         method: "POST",
         headers: {
@@ -76,7 +57,6 @@ export const AuthContextProvider = ({ children }) => {
       });
 
       const data = await response.json();
-      console.log(data);
     } catch (error) {
       if (error.response) {
         console.log("error", error.response.data);
@@ -86,8 +66,6 @@ export const AuthContextProvider = ({ children }) => {
     setUser("");
     setUsername("");
     setPassword("");
-
-    // localStorage.clear();
 
     router.push("/login");
   };

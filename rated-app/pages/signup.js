@@ -10,12 +10,9 @@ export default function signup() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  console.log(username);
-  console.log(password);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("tried");
 
     try {
       const res = await axios.post(`${BASE_API_URL}/users/signup`, {

@@ -1,21 +1,34 @@
-version: "3"
+version: "3.9"
 services:
   nginx:
     ports:
       - "8000:80"
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+
+  client:
+    build:
+      context: ./rated-app
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./rated-app:/app
+      - /app/node_modules
 
   rated-app-server:
     build:
       context: ./server
+      dockerfile: Dockerfile.dev
     volumes:
-      - ./:/app
+      - ./server/:/app
       - /app/node_modules
     environment:
-      - MONGO_USER=rated-app
-      - MONGO_PASSWORD=Youngboss89
-      - SESSION_SECRET=secret
-    command: npm run dev
+      NODE_ENV: ${NODE_ENV}
+      MONGO_USER: ${MONGO_USER}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+      SESSION_SECRET: ${SESSION_SECRET}
+
   mongo:
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=rated-app
-      - MONGO_INITDB_ROOT_PASSWORD=Youngboss89
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}

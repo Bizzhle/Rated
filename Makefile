@@ -1,4 +1,5 @@
 build:
+	# cd rated-app && $(MAKE) build
 	cd server && $(MAKE) build
 
 run:

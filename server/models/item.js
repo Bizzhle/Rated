@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
-const ItemSchema = Schema({
+const ItemSchema = new Schema({
   title: { type: String, required: true },
   comment: { type: String, required: true },
   category: [{ type: Schema.ObjectId, ref: "Category" }],

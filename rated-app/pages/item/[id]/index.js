@@ -1,11 +1,12 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Button, CardDiv, MainPadding } from "../../../styles";
 import axios from "axios";
 import { BASE_API_URL } from "../../api/constants";
 import Link from "next/link";
 import AuthContext from "../../../stores/authContext";
+import { useRouter } from "next/router";
 
-const item_detail_info = ({ itemDetail }) => {
+const item = ({ itemDetail }) => {
   const { user } = useContext(AuthContext);
 
   return (
@@ -34,10 +35,10 @@ const item_detail_info = ({ itemDetail }) => {
         </CardDiv>
         {user ? (
           <>
-            <Link href={`/itemx/${itemDetail._id}/update`}>
+            <Link href={`/item/${itemDetail._id}/update`}>
               <Button>Update</Button>
             </Link>
-            <Link href={`/itemx/${itemDetail._id}/delete`}>
+            <Link href={`/item/${itemDetail._id}/delete`}>
               <Button>Delete</Button>
             </Link>
           </>
@@ -50,12 +51,10 @@ const item_detail_info = ({ itemDetail }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  console.log("fetching for item");
-
-  const res = await axios.get(
-    `${BASE_API_URL}/catalog/item/${context.params.id}`
-  );
-  const itemDetail = await res.data;
+  console.log("fetching");
+  const id = context.params.id;
+  const res = await fetch(`${BASE_API_URL}/catalog/item/${id}`);
+  const itemDetail = await res.json();
 
   return {
     props: {
@@ -64,4 +63,14 @@ export const getServerSideProps = async (context) => {
   };
 };
 
-export default item_detail_info;
+// export const getStaticPaths = async () => {
+//   // Call an external API endpoint to get posts
+//   const response = await fetch(`${BASE_API_URL}/catalog/items`);
+//   const items = await response.json();
+
+//   const paths = items.map((item) => ({ params: { id: item.toString() } }));
+
+//   return { paths, fallback: true };
+// };
+
+export default item;

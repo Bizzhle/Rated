@@ -12,17 +12,13 @@ const Update_form = ({ itemID, categoryList, storeList }) => {
   const [store, setStore] = useState();
   const [rating, setRating] = useState();
   const [comment, setComment] = useState(itemID.item.comment);
-  console.log(category);
-  console.log(store);
-  console.log(rating);
-  console.log(itemID);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const res = await fetch(
-        `${BASE_API_URL}/catalog/item/${router.query.id}/update`,
+        `/api/v1/catalog/item/${router.query.id}/update`,
         {
           method: "POST",
           credentials: "include",
@@ -32,7 +28,7 @@ const Update_form = ({ itemID, categoryList, storeList }) => {
           body: JSON.stringify({ title, category, store, rating, comment }),
         }
       );
-      router.push("/item_list");
+      router.push("/");
     } catch (error) {
       if (error.response) {
         console.log("error", error.response.data);
@@ -130,8 +126,6 @@ const Update_form = ({ itemID, categoryList, storeList }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  console.log("fetching for category id");
-
   const res = await axios.get(
     `${BASE_API_URL}/catalog/item/${context.params.id}/update`
   );
