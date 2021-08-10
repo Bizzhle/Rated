@@ -4,3 +4,5 @@ Dockerfile
 .git
 .gitignore
 docker-compose*
+doc.http
+docs.http
