@@ -38,7 +38,6 @@ export const AuthContextProvider = ({ children }) => {
       setError("");
     } catch (error) {
       if (error.response) {
-        console.log("error", error.response.data);
         setError(error.response.data.message);
       }
     }

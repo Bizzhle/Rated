@@ -8,10 +8,10 @@ services:
       - client
     build:
       context: ./nginx
+
       dockerfile: Dockerfile
-      # dockerfile: Dockerfile.dev
     ports:
-      - 8000:80
+      - 80:80
     networks:
       - rated-app
 
@@ -19,8 +19,8 @@ services:
     restart: always
     build:
       context: ./rated-app
+
       dockerfile: Dockerfile
-      # dockerfile: Dockerfile.dev
     image: bizzhle/rated_client
     container_name: rated_app_frontend
     volumes:
@@ -35,13 +35,13 @@ services:
     restart: always
     build:
       context: ./server
+
       dockerfile: Dockerfile
-      # dockerfile: Dockerfile.dev
     image: bizzhle/rated-app-server
     container_name: rated_app_nginx
-    volumes:
-      - ./server/:/app
-      - /app/node_modules
+    # volumes:
+    #   - ./server/:/app
+    #   - /app/node_modules
     # ports:
     #   - 5000:5000
     depends_on:

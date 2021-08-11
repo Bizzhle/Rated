@@ -1,33 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { BASE_API_URL } from "./api/constants";
 import styled from "@emotion/styled";
-
 import axios from "axios";
+import Link from "next/link";
+
 import { FormPadding, LoginForm } from "../styles";
 
 export default function signup() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+
+  useEffect(() => {
+    if (successMsg) {
+      router.push("/login");
+    }
+  }, [successMsg]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const user = { username, password };
+
     try {
-      const res = await axios.post(`${BASE_API_URL}/users/signup`, {
-        username,
-        password,
+      const response = await axios.post(`/api/v1/users/signup`, user, {
+        withCredentials: true,
       });
-      console.log(res);
+
+      setSuccessMsg(response.data.status);
     } catch (error) {
-      if (error.res) {
-        console.log("error", error.res.data);
+      if (error.response) {
+        setError(error.response.data.message);
       }
     }
     setUsername("");
     setPassword("");
-    // router.push("/login");
   };
 
   return (
@@ -60,8 +70,12 @@ export default function signup() {
               required
             />
           </div>
+          {error ? <p>{error}</p> : ""}
 
           <button type="submit">SIGN UP</button>
+          <span>
+            Already have an account? <Link href="/signup">Login here</Link>
+          </span>
         </form>
       </LoginForm>
     </FormPadding>

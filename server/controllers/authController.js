@@ -6,22 +6,28 @@ exports.signUp = async (req, res) => {
   const { username, password } = req.body;
 
   try {
+    let user = await User.findOne({ username }); // we're first checking if there is any user with the provided email address.
+    if (user) {
+      return res.status(400).send({
+        status: "fail",
+        message: "User with the provided username already exists.",
+      });
+    }
+
     const hashpassword = await bcrypt.hash(password, 12);
     const newUser = await User.create({
       username,
       password: hashpassword,
     });
     req.session.user = newUser;
-    res.status(201).json({
+    res.status(201).send({
       status: "success",
       data: {
         user: newUser,
       },
     });
-  } catch (e) {
-    res.status(400).json({
-      status: "fail",
-    });
+  } catch (error) {
+    res.status(500).send("Something went wrong. Try again later.");
   }
 };
 
