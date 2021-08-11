@@ -1,7 +1,7 @@
 
-@baseUrl = http://nginx/api/v1
+@baseUrl = http://localhost:80/api/v1
 
-POST  {{baseUrl}}/users/login
+POST  {{baseUrl}}/users/signup
 Content-Type: application/json
 
 
