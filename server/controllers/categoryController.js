@@ -87,7 +87,7 @@ exports.category_create_post = [
 
         if (found_category) {
           // Category exists, redirect to its detail page
-          res.status(400).json({ status: "already exists" });
+          res.status(200).json({ status: "already exists" });
         } else {
           category.save(function (err) {
             if (err) {

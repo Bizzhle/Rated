@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_API_URL } from "../../api/constants";
 import { useRouter } from "next/router";
@@ -7,6 +7,13 @@ import { Form, FormPadding, LoginForm, MainPadding } from "../../../styles";
 const Update_form = ({ storeID }) => {
   const router = useRouter();
   const [name, setName] = useState(storeID.store.name);
+  const [successMsg, setSuccessMsg] = useState("");
+
+  useEffect(() => {
+    if (successMsg === 201) {
+      outer.push("/store_list");
+    }
+  }, [successMsg]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +30,7 @@ const Update_form = ({ storeID }) => {
           body: JSON.stringify({ name }),
         }
       );
-      router.push("/store_list");
+      // router.push("/store_list");
     } catch (error) {
       if (error.response) {
         console.log("error", error.response.data);
@@ -50,6 +57,7 @@ const Update_form = ({ storeID }) => {
               name="store"
               value={name}
               onChange={handleChange}
+              minLength="2"
             />
           </div>
 

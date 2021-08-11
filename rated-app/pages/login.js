@@ -46,9 +46,12 @@ export default function login() {
           {error ? <p>{error}</p> : ""}
 
           <button type="submit">Login</button>
-          <span className="login-screen__subtext">
-            Don't have an account? <Link href="/signup">Register</Link>
-          </span>
+          <>
+            Don't have an account?{" "}
+            <Link href="/signup">
+              <span>Register </span>
+            </Link>
+          </>
         </form>
       </LoginForm>
     </FormPadding>

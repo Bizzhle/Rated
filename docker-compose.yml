@@ -23,9 +23,9 @@ services:
       dockerfile: Dockerfile
     image: bizzhle/rated_client
     container_name: rated_app_frontend
-    volumes:
-      - ./rated-app:/app
-      - /app/node_modules
+    # volumes:
+    #   - ./rated-app:/app
+    #   - /app/node_modules
     depends_on:
       - rated-app-server
     networks:
@@ -39,9 +39,9 @@ services:
       dockerfile: Dockerfile
     image: bizzhle/rated-app-server
     container_name: rated_app_nginx
-    # volumes:
-    #   - ./server/:/app
-    #   - /app/node_modules
+    volumes:
+      - ./server/:/app
+      - /app/node_modules
     # ports:
     #   - 5000:5000
     depends_on:

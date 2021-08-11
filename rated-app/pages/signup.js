@@ -15,7 +15,7 @@ export default function signup() {
   const [successMsg, setSuccessMsg] = useState("");
 
   useEffect(() => {
-    if (successMsg) {
+    if (successMsg === "success") {
       router.push("/login");
     }
   }, [successMsg]);
@@ -43,7 +43,7 @@ export default function signup() {
   return (
     <FormPadding>
       <LoginForm>
-        <h2>Get started</h2>
+        <h2>Let's Get started</h2>
 
         <form onSubmit={handleSubmit}>
           <div>
@@ -73,9 +73,12 @@ export default function signup() {
           {error ? <p>{error}</p> : ""}
 
           <button type="submit">SIGN UP</button>
-          <span>
-            Already have an account? <Link href="/signup">Login here</Link>
-          </span>
+          <>
+            Already have an account?{" "}
+            <Link href="/login">
+              <span>Login here</span>
+            </Link>
+          </>
         </form>
       </LoginForm>
     </FormPadding>

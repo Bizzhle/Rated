@@ -48,6 +48,7 @@ const Update_form = ({ categoryID }) => {
               name="category"
               value={name}
               onChange={handleChange}
+              minLength="2"
             />
           </div>
 

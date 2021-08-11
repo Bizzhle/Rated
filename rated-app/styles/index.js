@@ -5,7 +5,7 @@ export const Main = styled.div`
 `;
 
 export const MainPadding = styled.div`
-  padding: 101px 20px;
+  padding: 115px 20px;
 
   @media screen and (min-width: 600px) {
     max-width: 56rem;
@@ -53,7 +53,6 @@ export const LoginForm = styled.div`
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
     var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 
-  margin-top: 10px;
   padding: 30px 30px;
 
   label {
@@ -63,16 +62,16 @@ export const LoginForm = styled.div`
 
   h1,
   h2 {
-    font-size: 20px;
-    padding: 10px 0;
-    margin: 10px 0;
+    font-size: 25px;
+    font-family: "Open Sans Condensed", sans-serif;
+    margin: 0px 0 30px 0;
   }
 
   p {
     padding: 0;
     color: red;
     margin: 0;
-    font-size: 15px;
+    font-size: 10px;
     font-family: "Open Sans Condensed", sans-serif;
   }
 
@@ -113,16 +112,21 @@ export const LoginForm = styled.div`
     color: #429ecb;
   }
 
-  @media screen and (max-width: 400px) {
-    width: 300px;
-    padding: 10px 15px;
+  @media screen and (max-width: 415px) {
+    width: 350px;
+    padding: 20px 20px;
+
+    h1,
+    h2 {
+      margin: 0px 0 20px 0;
+    }
 
     input,
     textarea,
     select {
       font: sans-serif;
-      padding: 6px 10px;
-      font-size: 1.3rem;
+      padding: 10px 10px;
+      font-size: 1rem;
       width: 100%;
 
       border: 1px solid #999;
@@ -181,7 +185,9 @@ export const Button = styled.div`
 
 export const CardDiv = styled.div`
   background-color: #f7f7f7;
-  font-size: 18px;
+  font-family: Open Sans Condensed;
+  font-weight: light;
+  font-size: 20px;
   cursor: pointer;
   border-radius: 5px;
   border: 1px solid #aeaeae;
@@ -191,5 +197,20 @@ export const CardDiv = styled.div`
   :focus,
   :active {
     border: 2px solid #429ecb;
+  }
+
+  p {
+    /* margin: 3px 0; */
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+
+    span {
+      font-family: Open Sans Condensed;
+      font-weight: Bold;
+    }
+  }
+
+  @media screen and (max-width: 415px) {
+    font-size: 15px;
   }
 `;

@@ -10,7 +10,7 @@ const Update_form = ({ itemID, categoryList, storeList }) => {
   const [title, setTitle] = useState(itemID.item.title);
   const [category, setCategory] = useState();
   const [store, setStore] = useState();
-  const [rating, setRating] = useState();
+  const [rating, setRating] = useState("");
   const [comment, setComment] = useState(itemID.item.comment);
 
   const handleSubmit = async (e) => {
@@ -54,6 +54,7 @@ const Update_form = ({ itemID, categoryList, storeList }) => {
               placeholder="Enter name of item"
               autoComplete="off"
               onChange={(e) => setTitle(e.target.value)}
+              minLength="2"
               required
             />
           </div>
@@ -64,8 +65,9 @@ const Update_form = ({ itemID, categoryList, storeList }) => {
               value={category}
               name="category"
               onChange={(e) => setCategory(e.target.value)}
+              required
             >
-              <option value={itemID.item.category[0].name}>{category}</option>
+              <option value="">Select a category</option>
               {categoryList.map((value, index) => {
                 return (
                   <option key={index} value={value._id}>
@@ -83,8 +85,9 @@ const Update_form = ({ itemID, categoryList, storeList }) => {
               value={store}
               name="store"
               onChange={(e) => setStore(e.target.value)}
+              required
             >
-              <option value={itemID.item.store[0].name}>{store}</option>
+              <option value="">Select a store</option>
               {storeList.map((value, index) => {
                 return (
                   <option key={index} value={value._id}>
@@ -103,7 +106,7 @@ const Update_form = ({ itemID, categoryList, storeList }) => {
               name="rating"
               onChange={(e) => setRating(e.target.value)}
             >
-              <option value={rating}>{rating}</option>
+              <option value="">Select a rating</option>
               <option value="Bad">Bad</option>
               <option value="Good">Good</option>
               <option value="Very Good">Very Good</option>

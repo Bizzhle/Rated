@@ -14,22 +14,21 @@ const item = ({ itemDetail }) => {
       <div>
         <h1>{itemDetail.title}</h1>
         <CardDiv>
-          <h3>{itemDetail.title}</h3>
+          <h2>{itemDetail.title}</h2>
           <p>
-            <span>category: </span>
-            {itemDetail.category[0].name}
+            <span>Category: </span> {itemDetail.category[0].name}
           </p>
           <p>
-            <span>store: </span>
+            <span>Store: </span>
             {itemDetail.store[0].name}
           </p>
           <p>
-            <span>rating: </span>
+            <span>Rating: </span>
             {itemDetail.rating}
           </p>
 
           <p>
-            <span>comment: </span>
+            <span>Comment: </span>
             {itemDetail.comment}
           </p>
         </CardDiv>

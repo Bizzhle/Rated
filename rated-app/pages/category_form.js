@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, FormPadding, LoginForm } from "../styles";
 import { useRouter } from "next/router";
 import { BASE_API_URL } from "./api/constants";
@@ -8,12 +8,22 @@ import axios from "axios";
 const category_form = ({ categoryList }) => {
   const router = useRouter();
   const [name, setName] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (successMsg === 201) {
+      router.push("/category_list");
+    } else if (successMsg === 200) {
+      setError("Category already exists");
+    }
+  }, [successMsg, error]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await fetch(`/api/v1/catalog/category/create`, {
+      const response = await fetch(`/api/v1/catalog/category/create`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -21,11 +31,7 @@ const category_form = ({ categoryList }) => {
         },
         body: JSON.stringify({ name }),
       });
-
-      console.log(res);
-      if (res.status === 200) {
-        router.push("/category_list");
-      }
+      setSuccessMsg(response.status);
     } catch (error) {
       if (err.response) {
         err.response.data;
@@ -54,6 +60,7 @@ const category_form = ({ categoryList }) => {
               placeholder="Enter a new category"
               autoComplete="off"
               onChange={handleChange}
+              minLength="2"
               required
             />
             <datalist id="categories">
@@ -66,6 +73,7 @@ const category_form = ({ categoryList }) => {
               })}
             </datalist>
           </div>
+          {error ? <p>{error}</p> : ""}
 
           <button type="submit">submit</button>
         </form>

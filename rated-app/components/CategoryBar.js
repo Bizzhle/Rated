@@ -25,8 +25,8 @@ const Bar = styled.div`
   /* background-color: #429ecb; */
 
   cursor: pointer;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  color: black;
+  font-family: Open Sans Condensed;
+  color: rgba(74, 85, 104, var(--text-opacity));
   letter-spacing: 1px;
 
   /* box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
@@ -68,7 +68,7 @@ const Bar = styled.div`
 
   @media screen and (max-width: 540px) {
     ul {
-      font-size: 0.8rem;
+      font-size: 1rem;
     }
   }
 `;

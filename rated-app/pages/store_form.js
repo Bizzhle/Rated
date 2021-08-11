@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { FormPadding, LoginForm } from "../styles";
 import styled from "@emotion/styled";
@@ -8,12 +8,24 @@ import axios from "axios";
 const store_form = ({ storeList }) => {
   const router = useRouter();
   const [name, setName] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+
+  const [error, setError] = useState("");
+  console.log(error);
+
+  useEffect(() => {
+    if (successMsg === 201) {
+      router.push("/store_list");
+    } else if (successMsg === 200) {
+      setError("Store already exists");
+    }
+  }, [successMsg]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await fetch(`/api/v1/catalog/store/create`, {
+      const response = await fetch(`/api/v1/catalog/store/create`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -21,10 +33,11 @@ const store_form = ({ storeList }) => {
         },
         body: JSON.stringify({ name }),
       });
-      router.push("/store_list");
+
+      setSuccessMsg(response.status);
     } catch (error) {
       if (error.response) {
-        console.log("error", error.response.data);
+        console.log("error", error.response);
       }
     }
     setName("");
@@ -49,6 +62,7 @@ const store_form = ({ storeList }) => {
               placeholder="Enter name of stores"
               autoComplete="off"
               onChange={handleChange}
+              minLength="2"
               required
             />
             <datalist id="stores">
@@ -61,6 +75,7 @@ const store_form = ({ storeList }) => {
               })}
             </datalist>
           </div>
+          {error ? <p>{error}</p> : ""}
 
           <button type="submit">submit</button>
         </form>

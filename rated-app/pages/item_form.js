@@ -62,6 +62,7 @@ const item_form = ({ storeList, categoryList }) => {
               autoComplete="off"
               onChange={(e) => setTitle(e.target.value)}
               required
+              minLength="2"
             />
           </div>
 
@@ -122,6 +123,7 @@ const item_form = ({ storeList, categoryList }) => {
             placeholder="write a comment"
             name="comment"
             value={comment}
+            minLength="2"
             onChange={(e) => setComment(e.target.value)}
           />
 

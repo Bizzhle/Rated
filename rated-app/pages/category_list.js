@@ -29,7 +29,9 @@ const category_list = ({ categoryList }) => {
               return (
                 <Link key={index} href={`/categorys/${value._id}`}>
                   <CardDiv>
-                    <li>{value.name}</li>
+                    <p>
+                      <span>{value.name}</span>
+                    </p>
                   </CardDiv>
                 </Link>
               );

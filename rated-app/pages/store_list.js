@@ -27,7 +27,9 @@ const store_list = ({ storeList }) => {
               return (
                 <Link key={index} href={`/stores/${value._id}`}>
                   <CardDiv>
-                    <li>{value.name}</li>
+                    <p>
+                      <span>{value.name}</span>
+                    </p>
                   </CardDiv>
                 </Link>
               );
