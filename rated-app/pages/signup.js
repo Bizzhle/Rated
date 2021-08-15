@@ -13,6 +13,7 @@ export default function signup() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+  console.log(error);
 
   useEffect(() => {
     if (successMsg === "success") {
@@ -43,7 +44,7 @@ export default function signup() {
   return (
     <FormPadding>
       <LoginForm>
-        <h2>Let's Get started</h2>
+        <h2>Let's Get Started</h2>
 
         <form onSubmit={handleSubmit}>
           <div>

@@ -242,6 +242,27 @@ exports.item_update_get = function (req, res, next) {
         return next(err);
       }
       // Success.
+      for (let i = 0; i < results.stores.length; i++) {
+        for (let j = 0; j < results.item.store.length; j++) {
+          if (
+            results.stores[i]._id.toString() ===
+            results.item.store[j]._id.toString()
+          ) {
+            results.stores[i].selected = "true";
+          }
+        }
+      }
+
+      for (let i = 0; i < results.categories.length; i++) {
+        for (let j = 0; j < results.item.category.length; j++) {
+          if (
+            results.categories[i]._id.toString() ===
+            results.item.category[j]._id.toString()
+          ) {
+            results.categories[i].selected = "true";
+          }
+        }
+      }
 
       res.status(201).json({
         category: results.categories,
@@ -327,9 +348,9 @@ exports.item_update_post = [
             }
           }
 
-          for (let i = 0; i < results.categories.length; i++) {
-            if (item.category.indexOf(results.categories[i]._id) > -1) {
-              results.categories[i].selected = "true";
+          for (let j = 0; j < results.categories.length; j++) {
+            if (item.category.indexOf(results.categories[j]._id) > -1) {
+              results.categories[j].selected = "true";
             }
           }
           res.status(200).json({

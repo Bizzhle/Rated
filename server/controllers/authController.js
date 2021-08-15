@@ -39,7 +39,8 @@ exports.login = async (req, res) => {
     if (!user) {
       return res.status(400).send({
         status: "fail",
-        message: "user not found, kindly enter correct username and password",
+        message:
+          "Username or password incorrect, kindly enter correct username and password",
       });
     }
 
@@ -53,7 +54,10 @@ exports.login = async (req, res) => {
     }
 
     if (!isCorrect) {
-      return res.status(400).send("incorrect username or password");
+      return res.status(400).send({
+        status: "fail",
+        message: "Incorrect password, enter correct password",
+      });
     }
   } catch (error) {
     res.status(500).send("Something went wrong, Try again later");

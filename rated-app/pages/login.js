@@ -46,12 +46,6 @@ export default function login() {
           {error ? <p>{error}</p> : ""}
 
           <button type="submit">Login</button>
-          <>
-            Don't have an account?{" "}
-            <Link href="/signup">
-              <span>Register </span>
-            </Link>
-          </>
         </form>
       </LoginForm>
     </FormPadding>

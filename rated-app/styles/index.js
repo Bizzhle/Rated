@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const Main = styled.div`
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 export const MainPadding = styled.div`
@@ -44,7 +44,7 @@ export const FormPadding = styled.div`
   background-color: #bde0e7;
   padding: 101px 10px 10px 10px;
 
-  height: 100%;
+  min-height: 100vh;
 `;
 
 export const LoginForm = styled.div`
@@ -70,23 +70,30 @@ export const LoginForm = styled.div`
   p {
     padding: 0;
     color: red;
-    margin: 0;
-    font-size: 10px;
+    /* margin-bottom: 10px; */
+    font-size: 13px;
     font-family: "Open Sans Condensed", sans-serif;
   }
 
-  input,
+  input:first-of-type,
   textarea,
   select {
     font: sans-serif;
-    padding: 12px 20px;
-    font-size: 1.3rem;
+    padding: 7px 20px;
+    font-size: 1.2rem;
     width: 100%;
 
     border: 1px solid #999;
     border-radius: 5px;
     outline: none;
+  }
+
+  div {
     margin-bottom: 20px;
+  }
+
+  div:last-of-type {
+    margin-bottom: 5px;
   }
 
   button[type="submit"] {

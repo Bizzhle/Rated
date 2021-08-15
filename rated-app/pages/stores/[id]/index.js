@@ -7,6 +7,7 @@ import { BASE_API_URL } from "../../api/constants";
 import AuthContext from "../../../stores/authContext";
 import { Button, MainPadding } from "../../../styles";
 import Detail_Card from "../../../components/Detail_Card";
+import Meta from "../../../components/Meta";
 
 const store_details = ({ storeDetail }) => {
   const { user } = useContext(AuthContext);
@@ -28,6 +29,7 @@ const store_details = ({ storeDetail }) => {
   });
   return (
     <MainPadding>
+      <Meta title={storeDetail.store.name} />
       <div>
         <h1>Items from {storeDetail.store.name}</h1>
         {displayList ? "" : <p>There are no items to display</p>}

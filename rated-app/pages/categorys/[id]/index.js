@@ -6,6 +6,7 @@ import Detail_Card from "../../../components/Detail_Card";
 import AuthContext from "../../../stores/authContext";
 import styled from "@emotion/styled";
 import { Button, MainPadding } from "../../../styles";
+import Meta from "../../../components/Meta";
 
 const category_detail = ({ categoryDetail }) => {
   const { user } = useContext(AuthContext);
@@ -24,6 +25,7 @@ const category_detail = ({ categoryDetail }) => {
   });
   return (
     <MainPadding>
+      <Meta title={categoryDetail.category.name} />
       <div>
         <h1>Items in {categoryDetail.category.name}</h1>
 

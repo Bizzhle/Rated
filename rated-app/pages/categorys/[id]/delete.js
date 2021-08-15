@@ -3,6 +3,7 @@ import axios from "axios";
 import { BASE_API_URL } from "../../api/constants";
 import { useRouter } from "next/router";
 import { Form, Button, FormPadding, LoginForm } from "../../../styles";
+import Meta from "../../../components/Meta";
 
 const Delete_form = ({ categoryDeleteID }) => {
   const router = useRouter();
@@ -56,6 +57,7 @@ const Delete_form = ({ categoryDeleteID }) => {
 
   return (
     <FormPadding>
+      <Meta title={categoryDeleteID.category.name} />
       <LoginForm>
         <h2>Delete {categoryDeleteID.category.name}</h2>
 

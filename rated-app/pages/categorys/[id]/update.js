@@ -3,6 +3,7 @@ import axios from "axios";
 import { BASE_API_URL } from "../../api/constants";
 import { useRouter } from "next/router";
 import { Form, FormPadding, LoginForm } from "../../../styles";
+import Meta from "../../../components/Meta";
 
 const Update_form = ({ categoryID }) => {
   const router = useRouter();
@@ -37,6 +38,7 @@ const Update_form = ({ categoryID }) => {
 
   return (
     <FormPadding>
+      <Meta title={categoryID.category.name} />
       <LoginForm>
         <h2>Update Category</h2>
 

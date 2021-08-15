@@ -6,11 +6,10 @@ import { Form, FormPadding, LoginForm } from "../../../styles";
 
 const Update_form = ({ itemID, categoryList, storeList }) => {
   const router = useRouter();
-
   const [title, setTitle] = useState(itemID.item.title);
-  const [category, setCategory] = useState();
-  const [store, setStore] = useState();
-  const [rating, setRating] = useState("");
+  const [category, setCategory] = useState(itemID.item.category[0]._id);
+  const [store, setStore] = useState(itemID.item.store[0]._id);
+  const [rating, setRating] = useState(itemID.item.rating);
   const [comment, setComment] = useState(itemID.item.comment);
 
   const handleSubmit = async (e) => {
@@ -67,7 +66,9 @@ const Update_form = ({ itemID, categoryList, storeList }) => {
               onChange={(e) => setCategory(e.target.value)}
               required
             >
-              <option value="">Select a category</option>
+              <option value={itemID.category[0]._id}>
+                {itemID.category[0].name}
+              </option>
               {categoryList.map((value, index) => {
                 return (
                   <option key={index} value={value._id}>
@@ -87,7 +88,9 @@ const Update_form = ({ itemID, categoryList, storeList }) => {
               onChange={(e) => setStore(e.target.value)}
               required
             >
-              <option value="">Select a store</option>
+              <option value={itemID.store[0]._id}>
+                {itemID.store[0].name}
+              </option>
               {storeList.map((value, index) => {
                 return (
                   <option key={index} value={value._id}>

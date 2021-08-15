@@ -49,9 +49,6 @@ const Navbar = () => {
             <Button>
               <Link href="/login">Login</Link>
             </Button>
-            <Button>
-              <Link href="/signup">Signup</Link>
-            </Button>
           </span>
         ) : (
           <span>
