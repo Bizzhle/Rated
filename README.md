@@ -1,6 +1,6 @@
 ## MERN stack app using Next.js
 
-Web app using Nextjs and MongoDB that can perform user registration and user actions.
+Web app built using Nextjs, express and MongoDB that can perform user registration and user actions.
 
 ## Tech stack
 
