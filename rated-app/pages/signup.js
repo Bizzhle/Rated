@@ -6,8 +6,9 @@ import axios from "axios";
 import Link from "next/link";
 
 import { FormPadding, LoginForm } from "../styles";
+import AuthRoute from "../util/AuthRoute";
 
-export default function signup() {
+const signup = () => {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -84,7 +85,9 @@ export default function signup() {
       </LoginForm>
     </FormPadding>
   );
-}
+};
+
+export default AuthRoute(signup);
 
 export const MainPadding1 = styled.div`
   display: flex;

@@ -19,10 +19,18 @@ export const AuthContextProvider = ({ children }) => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (user) {
-      router.push("/");
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      const foundUser = loggedInUser;
+      setUser(foundUser);
     }
-  }, [user]);
+  }, []);
+
+  // useEffect(() => {
+  //   if (user) {
+  //     router.push("/");
+  //   }
+  // }, [user]);
 
   const login = async (e) => {
     e.preventDefault();
@@ -33,8 +41,10 @@ export const AuthContextProvider = ({ children }) => {
       const response = await axios.post(`/api/v1/users/login`, user, {
         withCredentials: true,
       });
-
       setUser(response.data.user);
+      localStorage.setItem("user", response.data.user);
+      router.push("/");
+
       setError("");
     } catch (error) {
       if (error.response) {
@@ -56,6 +66,7 @@ export const AuthContextProvider = ({ children }) => {
       });
 
       const data = await response.json();
+      localStorage.clear();
     } catch (error) {
       if (error.response) {
         console.log("error", error.response.data);

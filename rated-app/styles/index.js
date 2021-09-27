@@ -48,12 +48,15 @@ export const FormPadding = styled.div`
 `;
 
 export const LoginForm = styled.div`
+  width: 380px;
+
   background-color: #fff;
   border-radius: 10px;
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
     var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 
   padding: 30px 30px;
+  /* margin: 0 20px; */
 
   label {
     font-weight: 700;
@@ -120,8 +123,9 @@ export const LoginForm = styled.div`
   }
 
   @media screen and (max-width: 415px) {
-    width: 350px;
-    padding: 20px 20px;
+    width: 300px;
+    /* padding: 20px 20px; */
+    margin: 0 20px;
 
     h1,
     h2 {

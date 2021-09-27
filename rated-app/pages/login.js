@@ -1,17 +1,12 @@
 import React, { useState, useContext } from "react";
-// import { Form } from "../styles";
-
-import Link from "next/link";
-import styled from "@emotion/styled";
 import AuthContext from "../stores/authContext";
 import { FormPadding, LoginForm } from "../styles";
+import AuthRoute from "../util/AuthRoute";
 
-export default function login() {
+const login = () => {
   const {
-    user,
     login,
-    username,
-    password,
+
     setUsername,
     setPassword,
     error,
@@ -50,4 +45,6 @@ export default function login() {
       </LoginForm>
     </FormPadding>
   );
-}
+};
+
+export default AuthRoute(login);

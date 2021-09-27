@@ -1,6 +1,4 @@
 import "../styles/globals.css";
-import { CookiesProvider } from "react-cookie";
-
 import Layout from "../components/Layout";
 import { AuthContextProvider } from "../stores/authContext";
 

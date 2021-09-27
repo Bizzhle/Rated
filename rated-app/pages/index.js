@@ -35,18 +35,9 @@ export const getServerSideProps = async () => {
   const response = await fetch(`${BASE_API_URL}/catalog/items`);
   const itemList = await response.json();
 
-  // const resp = await axios.get(`${BASE_API_URL}/catalog/categories`);
-  // const categoryList = await resp.data;
-
-  // const respond = await axios.get(`${BASE_API_URL}/catalog/stores`);
-  // const storeList = await respond.data;
-
   return {
     props: {
       itemList,
-      // categoryList,
-      // storeList,
-      // data: data && data,
     },
   };
 };
